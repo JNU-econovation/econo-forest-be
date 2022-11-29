@@ -47,17 +47,35 @@ class JpaEatTogatherRepositoryTest {
     }
 
     @Test
+    void findByLocation() {
+        Specification<EatTogather> locationSpec = new LocationSpec(EatLocation.FRONT);
+        EatTogather eatTogather = jpaEatTogatherRepository.findByLocation(locationSpec);
+
+        Assertions.assertThat(eatTogather.getId())
+                .isEqualTo(3);
+    }
+
+    @Test
     void findAllByLocation() {
         Specification<EatTogather> locationSpec = new LocationSpec(EatLocation.BACK);
-        List<EatTogather> eatTogathers = jpaEatTogatherRepository.findAllBySpec(locationSpec);
+        List<EatTogather> eatTogathers = jpaEatTogatherRepository.findAllByLocation(locationSpec);
         Assertions.assertThat(eatTogathers.size())
                 .isEqualTo(2);
     }
 
     @Test
+    void findByDate() {
+        EatTogatherDateSpec eatTogatherDateSpec = new EatTogatherDateSpec(LocalDateTime.now()
+                .plusDays(1L));
+        EatTogather eatTogather = jpaEatTogatherRepository.findByDate(eatTogatherDateSpec);
+        Assertions.assertThat(eatTogather.getId())
+                .isEqualTo(3);
+    }
+
+    @Test
     void findAllByDate() {
         EatTogatherDateSpec eatTogatherDateSpec = new EatTogatherDateSpec(LocalDateTime.now());
-        List<EatTogather> eatTogatherDate = jpaEatTogatherRepository.findAllBySpec(eatTogatherDateSpec);
+        List<EatTogather> eatTogatherDate = jpaEatTogatherRepository.findAllByDate(eatTogatherDateSpec);
         Assertions.assertThat(eatTogatherDate.size())
                 .isEqualTo(2);
     }
