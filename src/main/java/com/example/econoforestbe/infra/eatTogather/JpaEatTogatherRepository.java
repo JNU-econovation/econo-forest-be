@@ -45,6 +45,30 @@ public class JpaEatTogatherRepository implements EatTogatherRepository {
     }
 
     @Override
+    public EatTogather findByLocation(Specification<EatTogather> spec) {
+        TypedQuery<EatTogather> query = makeQuery(spec);
+        return query.getSingleResult();
+    }
+
+    @Override
+    public List<EatTogather> findAllByLocation(Specification<EatTogather> spec) {
+        TypedQuery<EatTogather> query = makeQuery(spec);
+        return query.getResultList();
+    }
+
+    @Override
+    public EatTogather findByDate(Specification<EatTogather> spec) {
+        TypedQuery<EatTogather> query = makeQuery(spec);
+        return query.getSingleResult();
+    }
+
+    @Override
+    public List<EatTogather> findAllByDate(Specification<EatTogather> spec) {
+        TypedQuery<EatTogather> query = makeQuery(spec);
+        return query.getResultList();
+    }
+
+    @Override
     public EatTogather findBySpec(Specification<EatTogather> spec) {
         TypedQuery<EatTogather> query = makeQuery(spec);
         return query.getSingleResult();

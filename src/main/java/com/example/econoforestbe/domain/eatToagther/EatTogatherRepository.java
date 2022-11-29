@@ -10,6 +10,16 @@ public interface EatTogatherRepository {
 
     EatTogather findById(Long id);
 
+    EatTogather findByLocation(Specification<EatTogather> spec);
+
+    List<EatTogather> findAllByLocation(Specification<EatTogather> spec);
+
+
+    EatTogather findByDate(Specification<EatTogather> spec);
+
+    List<EatTogather> findAllByDate(Specification<EatTogather> spec);
+
+
     EatTogather findBySpec(Specification<EatTogather> spec);
 
     List<EatTogather> findAllBySpec(Specification<EatTogather> spec);
