@@ -76,10 +76,24 @@ public class EatTogather {
         }
     }
 
+    public void cancleEatTogather(Member member) {
+        if (isWriter(member)) {
+            throw new IllegalArgumentException(WARM_WRITER_CANT_CANCEL);
+        }
+
+        Optional<EatTogatherMember> findEatTogatherMember = findEatTogatherMember(member);
+
+        if (!findEatTogatherMember.isPresent()) {
+            throw new IllegalArgumentException(WARM_NO_SUCH_MEMBER);
+        }
+
+        if (!this.eatTogatherMembers.remove(findEatTogatherMember.get())) {
+            throw new IllegalStateException(WARM_REMOVE);
+        }
+    }
     private Optional<EatTogatherMember> findEatTogatherMember(Member member) {
         return this.eatTogatherMembers.stream()
                 .filter(eatTogatherMember -> eatTogatherMember.isEqualMember(member))
                 .findFirst();
     }
-
 }
