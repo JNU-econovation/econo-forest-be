@@ -28,6 +28,8 @@ class JpaEatTogatherRepositoryTest {
     @Autowired
     private JpaEatTogatherRepository jpaEatTogatherRepository;
 
+    private Long eatTogather3Id;
+
     @BeforeEach
     public void initDataSet() {
         EatTogatherDate eatTogatherDateNow = new EatTogatherDate(LocalDateTime.now());
@@ -44,6 +46,7 @@ class JpaEatTogatherRepositoryTest {
         jpaEatTogatherRepository.save(eatTogather2);
         EatTogather eatTogather3 = new EatTogather("test3", eatTogatherInfoFront, member);
         jpaEatTogatherRepository.save(eatTogather3);
+        eatTogather3Id = eatTogather3.getId();
     }
 
     @Test
@@ -52,7 +55,7 @@ class JpaEatTogatherRepositoryTest {
         EatTogather eatTogather = jpaEatTogatherRepository.findByLocation(locationSpec);
 
         Assertions.assertThat(eatTogather.getId())
-                .isEqualTo(3);
+                .isEqualTo(eatTogather3Id);
     }
 
     @Test
@@ -69,7 +72,7 @@ class JpaEatTogatherRepositoryTest {
                 .plusDays(1L));
         EatTogather eatTogather = jpaEatTogatherRepository.findByDate(eatTogatherDateSpec);
         Assertions.assertThat(eatTogather.getId())
-                .isEqualTo(3);
+                .isEqualTo(eatTogather3Id);
     }
 
     @Test
