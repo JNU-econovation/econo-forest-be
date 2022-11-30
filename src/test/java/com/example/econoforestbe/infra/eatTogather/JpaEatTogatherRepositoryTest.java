@@ -84,4 +84,15 @@ class JpaEatTogatherRepositoryTest {
         Assertions.assertThat(eatTogatherDate.size())
                 .isEqualTo(2);
     }
+
+    @Test
+    void findAllByDateAfterToday() throws Exception {
+        DateGreaterThanOrEqualSpec dateGreaterThanOrEqualSpec = new DateGreaterThanOrEqualSpec(LocalDateTime.now()
+                .plusDays(1L));
+        List<EatTogather> eatTogatherDate = jpaEatTogatherRepository.findAllByDate(dateGreaterThanOrEqualSpec);
+        Assertions.assertThat(eatTogatherDate.size())
+                .isEqualTo(1);
+
+    }
+
 }
