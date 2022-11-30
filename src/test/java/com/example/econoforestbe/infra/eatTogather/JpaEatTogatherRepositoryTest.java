@@ -5,8 +5,10 @@ import com.example.econoforestbe.domain.eatToagther.EatLocation;
 import com.example.econoforestbe.domain.eatToagther.EatTogather;
 import com.example.econoforestbe.domain.eatToagther.EatTogatherDate;
 import com.example.econoforestbe.domain.eatToagther.EatTogatherInfo;
-import com.example.econoforestbe.domain.eatToagther.spec.EatTogatherDateSpec;
+import com.example.econoforestbe.domain.eatToagther.spec.DateGreaterThanOrEqualSpec;
+import com.example.econoforestbe.domain.eatToagther.spec.DateSpec;
 import com.example.econoforestbe.domain.eatToagther.spec.LocationSpec;
+import com.example.econoforestbe.infra.jpaspec.AndSpecification;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -68,17 +70,17 @@ class JpaEatTogatherRepositoryTest {
 
     @Test
     void findByDate() {
-        EatTogatherDateSpec eatTogatherDateSpec = new EatTogatherDateSpec(LocalDateTime.now()
+        DateSpec dateSpec = new DateSpec(LocalDateTime.now()
                 .plusDays(1L));
-        EatTogather eatTogather = jpaEatTogatherRepository.findByDate(eatTogatherDateSpec);
+        EatTogather eatTogather = jpaEatTogatherRepository.findByDate(dateSpec);
         Assertions.assertThat(eatTogather.getId())
                 .isEqualTo(eatTogather3Id);
     }
 
     @Test
     void findAllByDate() {
-        EatTogatherDateSpec eatTogatherDateSpec = new EatTogatherDateSpec(LocalDateTime.now());
-        List<EatTogather> eatTogatherDate = jpaEatTogatherRepository.findAllByDate(eatTogatherDateSpec);
+        DateSpec dateSpec = new DateSpec(LocalDateTime.now());
+        List<EatTogather> eatTogatherDate = jpaEatTogatherRepository.findAllByDate(dateSpec);
         Assertions.assertThat(eatTogatherDate.size())
                 .isEqualTo(2);
     }
