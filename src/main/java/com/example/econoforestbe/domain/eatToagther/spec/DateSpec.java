@@ -12,11 +12,11 @@ import javax.persistence.criteria.Root;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class EatTogatherDateSpec implements Specification<EatTogather> {
+public class DateSpec implements Specification<EatTogather> {
 
     private LocalDate date;
 
-    public EatTogatherDateSpec(LocalDateTime localDateTime) {
+    public DateSpec(LocalDateTime localDateTime) {
         this.date = localDateTime.toLocalDate();
     }
 
