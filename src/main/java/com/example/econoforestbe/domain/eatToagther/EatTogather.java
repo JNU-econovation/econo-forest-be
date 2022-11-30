@@ -63,4 +63,23 @@ public class EatTogather {
         }
         return false;
     }
+
+    public void participateEatTogather(Member member) {
+        validateDuplicate(member);
+        this.eatTogatherMembers.add(new EatTogatherMember(member));
+    }
+
+    private void validateDuplicate(Member member) {
+        Optional<EatTogatherMember> findDuplicate = findEatTogatherMember(member);
+        if (findDuplicate.isPresent()) {
+            throw new IllegalArgumentException(WARM_DUPLICATE_MEMBER);
+        }
+    }
+
+    private Optional<EatTogatherMember> findEatTogatherMember(Member member) {
+        return this.eatTogatherMembers.stream()
+                .filter(eatTogatherMember -> eatTogatherMember.isEqualMember(member))
+                .findFirst();
+    }
+
 }
