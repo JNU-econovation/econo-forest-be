@@ -95,4 +95,13 @@ class JpaEatTogatherRepositoryTest {
 
     }
 
+    @Test
+    void findAllByDateAnd() throws Exception {
+        DateGreaterThanOrEqualSpec dateGreaterThanOrEqualSpec = new DateGreaterThanOrEqualSpec(LocalDateTime.now());
+        LocationSpec locationSpec = new LocationSpec(EatLocation.FRONT);
+        AndSpecification<EatTogather> eatTogatherAndSpecification = new AndSpecification<>(dateGreaterThanOrEqualSpec, locationSpec);
+        List<EatTogather> eatTogatherDate = jpaEatTogatherRepository.findAllByDate(eatTogatherAndSpecification);
+        Assertions.assertThat(eatTogatherDate.size())
+                .isEqualTo(1);
+    }
 }
