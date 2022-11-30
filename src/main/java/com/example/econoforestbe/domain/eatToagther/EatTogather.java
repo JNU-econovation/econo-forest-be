@@ -96,4 +96,8 @@ public class EatTogather {
                 .filter(eatTogatherMember -> eatTogatherMember.isEqualMember(member))
                 .findFirst();
     }
+
+    public int participateEatTogatherMemberCount() {
+        return this.eatTogatherMembers.size();
+    }
 }
