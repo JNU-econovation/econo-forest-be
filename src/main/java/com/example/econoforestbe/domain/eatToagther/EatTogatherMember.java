@@ -16,4 +16,10 @@ public class EatTogatherMember {
         this.memberId = member.getId();
     }
 
+    public boolean isEqualMember(Member member) {
+        if (this.memberId == member.getId()) {
+            return true;
+        }
+        return false;
+    }
 }
