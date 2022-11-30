@@ -1,10 +1,7 @@
 package com.example.econoforestbe.infra.eatTogather;
 
 import com.example.econoforestbe.domain.Member.Member;
-import com.example.econoforestbe.domain.eatToagther.EatLocation;
-import com.example.econoforestbe.domain.eatToagther.EatTogather;
-import com.example.econoforestbe.domain.eatToagther.EatTogatherDate;
-import com.example.econoforestbe.domain.eatToagther.EatTogatherInfo;
+import com.example.econoforestbe.domain.eatToagther.*;
 import com.example.econoforestbe.domain.eatToagther.spec.DateGreaterThanOrEqualSpec;
 import com.example.econoforestbe.domain.eatToagther.spec.DateSpec;
 import com.example.econoforestbe.domain.eatToagther.spec.LocationSpec;
@@ -20,6 +17,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
