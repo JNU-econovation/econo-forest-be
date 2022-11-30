@@ -37,4 +37,11 @@ public class EatTogatherDate {
         }
     }
 
+    public boolean isBeforeTime(LocalDateTime localDateTime) {
+        if (time.isBefore(localDateTime.toLocalTime())) {
+            return true;
+        }
+        return false;
+    }
+
 }
