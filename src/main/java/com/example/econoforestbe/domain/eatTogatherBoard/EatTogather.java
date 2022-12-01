@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Access(AccessType.FIELD)
-public class EatTogatherBoard {
+public class EatTogather {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
