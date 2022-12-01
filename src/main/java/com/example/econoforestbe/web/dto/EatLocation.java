@@ -1,4 +1,4 @@
-package com.example.econoforestbe.domain;
+package com.example.econoforestbe.web.dto;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
