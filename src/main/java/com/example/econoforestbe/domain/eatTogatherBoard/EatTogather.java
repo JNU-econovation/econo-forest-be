@@ -1,7 +1,5 @@
 package com.example.econoforestbe.domain.eatTogatherBoard;
 
-import com.example.econoforestbe.domain.EatLocation;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -17,8 +15,7 @@ public class EatTogather {
 
     private LocalDateTime dateTime;
 
-    @Enumerated(EnumType.STRING)
-    private EatLocation location;
+    private String location;
 
     private String writerId;
 
