@@ -19,4 +19,6 @@ public class EatTogatherBoard {
 
     private String location;
 
+    private String writerId;
+
 }
