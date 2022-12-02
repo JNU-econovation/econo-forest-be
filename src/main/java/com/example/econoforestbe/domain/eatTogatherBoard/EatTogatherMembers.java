@@ -10,7 +10,7 @@ import java.util.Optional;
 @NoArgsConstructor
 public class EatTogatherMembers {
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "eat_togather_members",
             joinColumns = @JoinColumn(name = "eat_togather_id"))
     @OrderColumn(name = "eat_togather_member_idx")
