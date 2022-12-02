@@ -11,10 +11,10 @@ import java.util.Objects;
 @NoArgsConstructor
 public class EatTogatherInfo {
 
-    @Column(name = "eat_togatehr_dateTime")
+    @Column(name = "eat_togather_dateTime")
     private LocalDateTime dateTime;
 
-    @Column(name = "eat_togatehr_location")
+    @Column(name = "eat_togather_location")
     private String location;
 
     public EatTogatherInfo(LocalDateTime dateTime, String location) {

@@ -7,15 +7,15 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @Access(AccessType.FIELD)
-@Table(name = "eat_togatehr")
+@Table(name = "eat_togather")
 public class EatTogather {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "eat_togatehr_id")
+    @Column(name = "eat_togather_id")
     private Long id;
 
-    @Column(name = "eat_togatehr_titile")
+    @Column(name = "eat_togather_titile")
     private String title;
 
     @Embedded

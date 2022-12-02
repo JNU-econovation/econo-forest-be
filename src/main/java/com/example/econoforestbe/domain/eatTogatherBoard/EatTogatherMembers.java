@@ -11,9 +11,9 @@ import java.util.Optional;
 public class EatTogatherMembers {
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "eat_togatehr_members",
+    @CollectionTable(name = "eat_togather_members",
             joinColumns = @JoinColumn(name = "eat_togather_id"))
-    @OrderColumn(name = "eat_togatehr_member_idx")
+    @OrderColumn(name = "eat_togather_member_idx")
     private List<EatTogatherMember> eatTogatherMemberList;
 
     public EatTogatherMembers(Long memberId) {
