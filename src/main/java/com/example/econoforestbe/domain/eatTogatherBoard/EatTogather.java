@@ -32,4 +32,12 @@ public class EatTogather {
         this.writerId = writerId;
         this.eatTogatherMembers = eatTogatherMembers;
     }
+
+    public EatTogatherInfo getEatTogatherInfo() {
+        return eatTogatherInfo;
+    }
+
+    public EatTogatherMembers getEatTogatherMembers() {
+        return eatTogatherMembers;
+    }
 }
