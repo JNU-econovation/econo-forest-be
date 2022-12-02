@@ -13,11 +13,11 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class EatTogatherService {
 
-    private EatTogatherRepository eatTogatherRepository;
+    private final EatTogatherRepository eatTogatherRepository;
 
     @Transactional
     public void postEatTogather(EatTogather eatTogather) {
-        EatTogather savedEatTogather = eatTogatherRepository.save(eatTogather);
+        eatTogatherRepository.save(eatTogather);
     }
 
     public EatTogather readEatTogather(Long eatTogatherId) {
