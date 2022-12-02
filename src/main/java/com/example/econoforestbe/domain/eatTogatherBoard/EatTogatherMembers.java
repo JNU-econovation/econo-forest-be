@@ -29,8 +29,7 @@ public class EatTogatherMembers {
                 .getId();
     }
 
-    public void addEatTogatherMember(Long memberId) {
-        JoinMember joinMember = new JoinMember(memberId);
+    public void addEatTogatherMember(JoinMember joinMember) {
         EatTogatherMember eatTogatherMember = new EatTogatherMember(joinMember);
         validateJoinMember(eatTogatherMember);
         eatTogatherMemberList.add(eatTogatherMember);

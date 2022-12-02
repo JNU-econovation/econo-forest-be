@@ -1,6 +1,7 @@
 package com.example.econoforestbe.domain.withEatTogather;
 
 import com.example.econoforestbe.domain.eatTogatherBoard.EatTogather;
+import com.example.econoforestbe.domain.eatTogatherBoard.JoinMember;
 
 public class WithEatTogatherMember {
 
@@ -12,6 +13,6 @@ public class WithEatTogatherMember {
 
     public void join(EatTogather eatTogather) {
         eatTogather.getEatTogatherMembers()
-                .addEatTogatherMember(memberId);
+                .addEatTogatherMember(new JoinMember(memberId));
     }
 }
