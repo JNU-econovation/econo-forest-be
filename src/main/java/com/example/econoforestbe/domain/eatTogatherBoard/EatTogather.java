@@ -15,7 +15,7 @@ public class EatTogather {
     @Column(name = "eat_togather_id")
     private Long id;
 
-    @Column(name = "eat_togather_titile")
+    @Column(name = "eat_togather_title")
     private String title;
 
     @Embedded
