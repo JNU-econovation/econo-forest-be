@@ -3,14 +3,14 @@ package com.example.econoforestbe.domain.withEatTogather;
 
 public class WithEatTogather {
 
-    private final Long memberId;
+    private WithEatTogatherInfo withEatTogatherInfo;
 
-    private final WithEatTogatherInfo withEatTogatherInfo;
+    private WithEatTogatherMember withEatTogatherMember;
 
 
-    public WithEatTogather(Long memberId, WithEatTogatherInfo withEatTogatherInfo) {
-        this.memberId = memberId;
+    public WithEatTogather(WithEatTogatherInfo withEatTogatherInfo, WithEatTogatherMember withEatTogatherMember) {
         this.withEatTogatherInfo = withEatTogatherInfo;
+        this.withEatTogatherMember = withEatTogatherMember;
     }
 
 
