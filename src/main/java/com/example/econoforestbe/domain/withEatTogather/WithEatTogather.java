@@ -20,10 +20,15 @@ public class WithEatTogather {
 
     public void participate() {
         validate();
+        join(eatTogather);
     }
 
     private void validate() {
         withEatTogatherInfo.validate();
+    }
+
+    private void join(EatTogather eatTogather) {
+        withEatTogatherMember.join(eatTogather);
     }
 
 }
