@@ -13,6 +13,10 @@ public class WithEatTogatherMember {
 
     public void join(EatTogather eatTogather) {
         eatTogather.getEatTogatherMembers()
-                .addEatTogatherMember(new JoinMember(memberId));
+                .addEatTogatherMember(convertToJoinMember());
+    }
+
+    public JoinMember convertToJoinMember() {
+        return new JoinMember(memberId);
     }
 }
