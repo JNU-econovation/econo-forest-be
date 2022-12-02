@@ -29,26 +29,30 @@ public class EatTogatherMembers {
                 .getId();
     }
 
-    public void addEatTogatherMember(Long memberId) {
-        EatTogatherMember eatTogatherMember = new EatTogatherMember(memberId);
-        isAlreadyInList(eatTogatherMember);
+    public void addEatTogatherMember(JoinMember joinMember) {
+        EatTogatherMember eatTogatherMember = new EatTogatherMember(joinMember);
+        validateJoinMember(eatTogatherMember);
         eatTogatherMemberList.add(eatTogatherMember);
+    }
+
+    private void validateJoinMember(EatTogatherMember eatTogatherMember) {
+        isWriter(eatTogatherMember);
+        isAlreadyInList(eatTogatherMember);
+    }
+
+    private boolean isWriter(EatTogatherMember eatTogatherMember) {
+        if (eatTogatherMemberList.get(0).equals(eatTogatherMember)) {
+            return true;
+        }
+        return false;
     }
 
     private void isAlreadyInList(EatTogatherMember eatTogatherMember) {
         Optional<EatTogatherMember> anyFoundResult = eatTogatherMemberList.stream()
-                .filter(members -> members.equals(eatTogatherMember))
+                .filter(existMember -> existMember.equals(eatTogatherMember))
                 .findAny();
         if (anyFoundResult.isPresent()) {
             throw new IllegalArgumentException("this member is already participated in this eatTogather meeting");
         }
-    }
-
-    public boolean isWriter(Long memberid) {
-        if (eatTogatherMemberList.get(0)
-                .getId() == memberid) {
-            return true;
-        }
-        return false;
     }
 }
