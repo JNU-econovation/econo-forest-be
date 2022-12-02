@@ -1,6 +1,5 @@
 package com.example.econoforestbe.domain.eatTogatherBoard;
 
-import com.example.econoforestbe.domain.withEatTogather.WithEatTogatherInfo;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -23,8 +22,8 @@ public class EatTogatherInfo {
         this.location = location;
     }
 
-    public void validateWith(WithEatTogatherInfo withEatTogatherInfo) {
-        if (!this.equals(withEatTogatherInfo)) {
+    public void validateWith(Info info) {
+        if (!this.equals(info)) {
             throw new IllegalStateException("there are change in eatTogather meeting");
         }
     }
@@ -33,8 +32,8 @@ public class EatTogatherInfo {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null) return false;
-        if(!(o instanceof WithEatTogatherInfo)) return false;
-        WithEatTogatherInfo other = (WithEatTogatherInfo) o;
+        if(!(o instanceof Info)) return false;
+        Info other = (Info) o;
         return Objects.equals(dateTime, other.getDateTime()) && Objects.equals(location, other.getLocation());
     }
 
