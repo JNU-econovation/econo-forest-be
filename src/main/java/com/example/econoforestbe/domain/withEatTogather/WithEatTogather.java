@@ -24,7 +24,8 @@ public class WithEatTogather {
     }
 
     private void validate() {
-        withEatTogatherInfo.validate();
+        eatTogather.getEatTogatherInfo()
+                .validateWith(withEatTogatherInfo.convertToInfo());
     }
 
     private void join(EatTogather eatTogather) {
