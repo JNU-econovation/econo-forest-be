@@ -7,7 +7,7 @@ create table EAT_TOGATHER
     EAT_TOGATHER_DATE_TIME timestamp,
     EAT_TOGATHER_LOCATION  varchar(255),
     EAT_TOGATHER_TITTLE    varchar(255),
-    WRITER_ID              varchar(255),
+    WRITER_ID              bigint,
     primary key (EAT_TOGATHER_ID)
 );
 

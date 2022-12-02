@@ -21,12 +21,12 @@ public class EatTogather {
     @Embedded
     private EatTogatherInfo eatTogatherInfo;
 
-    private String writerId;
+    private Long writerId;
 
     @Embedded
     private EatTogatherMembers eatTogatherMembers;
 
-    public EatTogather(String title, EatTogatherInfo eatTogatherInfo, String writerId, EatTogatherMembers eatTogatherMembers) {
+    public EatTogather(String title, EatTogatherInfo eatTogatherInfo, Long writerId, EatTogatherMembers eatTogatherMembers) {
         this.title = title;
         this.eatTogatherInfo = eatTogatherInfo;
         this.writerId = writerId;
