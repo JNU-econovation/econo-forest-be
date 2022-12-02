@@ -2,7 +2,7 @@ package com.example.econoforestbe.domain.eatTogatherBoard;
 
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Embeddable
@@ -14,6 +14,10 @@ public class EatTogatherMember {
         this.id = id;
     }
 
+    public EatTogatherMember(JoinMember joinMember) {
+        this.id = joinMember.getMemberId();
+    }
+
     public Long getId() {
         return id;
     }
@@ -21,9 +25,10 @@ public class EatTogatherMember {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        EatTogatherMember that = (EatTogatherMember) o;
-        return Objects.equals(id, that.id);
+        if (o == null) return false;
+        if(!(o instanceof JoinMember)) return false;
+        JoinMember other = (JoinMember) o;
+        return Objects.equals(id, other.getMemberId());
     }
 
     @Override
