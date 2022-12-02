@@ -1,19 +1,17 @@
 package com.example.econoforestbe.domain.withEatTogather;
 
-import com.example.econoforestbe.domain.eatTogatherBoard.EatTogatherMembers;
+import com.example.econoforestbe.domain.eatTogatherBoard.EatTogather;
 
 public class WithEatTogatherMember {
 
-    private final EatTogatherMembers eatTogatherMembers;
-
     private final Long memberId;
 
-    public WithEatTogatherMember(EatTogatherMembers eatTogatherMembers, Long memberId) {
-        this.eatTogatherMembers = eatTogatherMembers;
+    public WithEatTogatherMember(Long memberId) {
         this.memberId = memberId;
     }
 
-    public void join() {
-        eatTogatherMembers.addEatTogatherMember(memberId);
+    public void join(EatTogather eatTogather) {
+        eatTogather.getEatTogatherMembers()
+                .addEatTogatherMember(memberId);
     }
 }
