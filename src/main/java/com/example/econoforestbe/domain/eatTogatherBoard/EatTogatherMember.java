@@ -8,6 +8,7 @@ import java.util.Objects;
 @Embeddable
 @NoArgsConstructor
 public class EatTogatherMember {
+    @Column(name = "eat_togather_member")
     private Long id;
 
     public EatTogatherMember(Long id) {
@@ -26,7 +27,7 @@ public class EatTogatherMember {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null) return false;
-        if(!(o instanceof JoinMember)) return false;
+        if (!(o instanceof JoinMember)) return false;
         JoinMember other = (JoinMember) o;
         return Objects.equals(id, other.getMemberId());
     }

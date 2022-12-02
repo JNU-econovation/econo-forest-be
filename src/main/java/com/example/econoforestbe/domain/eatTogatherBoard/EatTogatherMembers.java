@@ -12,7 +12,7 @@ public class EatTogatherMembers {
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "eat_togatehr_members",
-            joinColumns = @JoinColumn(name = "id"))
+            joinColumns = @JoinColumn(name = "eat_togather_id"))
     @OrderColumn(name = "eat_togatehr_member_idx")
     private List<EatTogatherMember> eatTogatherMemberList;
 
@@ -29,7 +29,8 @@ public class EatTogatherMembers {
                 .getId();
     }
 
-    public void addEatTogatherMember(JoinMember joinMember) {
+    public void addEatTogatherMember(Long memberId) {
+        JoinMember joinMember = new JoinMember(memberId);
         EatTogatherMember eatTogatherMember = new EatTogatherMember(joinMember);
         validateJoinMember(eatTogatherMember);
         eatTogatherMemberList.add(eatTogatherMember);
