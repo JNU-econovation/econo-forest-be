@@ -1,9 +1,11 @@
 package com.example.econoforestbe.domain.eatTogatherBoard;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
+@NoArgsConstructor
 @Access(AccessType.FIELD)
 public class EatTogather {
 
@@ -13,13 +15,18 @@ public class EatTogather {
 
     private String title;
 
-    private LocalDateTime dateTime;
-
-    private String location;
+    @Embedded
+    private EatTogatherInfo eatTogatherInfo;
 
     private String writerId;
 
     @Embedded
     private EatTogatherMembers eatTogatherMembers;
 
+    public EatTogather( String title, EatTogatherInfo eatTogatherInfo, String writerId, EatTogatherMembers eatTogatherMembers) {
+        this.title = title;
+        this.eatTogatherInfo = eatTogatherInfo;
+        this.writerId = writerId;
+        this.eatTogatherMembers = eatTogatherMembers;
+    }
 }
