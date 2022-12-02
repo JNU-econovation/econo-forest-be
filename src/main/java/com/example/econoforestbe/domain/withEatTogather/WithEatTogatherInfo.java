@@ -1,20 +1,16 @@
 package com.example.econoforestbe.domain.withEatTogather;
 
-import com.example.econoforestbe.domain.eatTogatherBoard.EatTogatherInfo;
+import com.example.econoforestbe.domain.eatTogatherBoard.Info;
 
 import java.time.LocalDateTime;
 
 public class WithEatTogatherInfo {
 
-    private EatTogatherInfo eatTogatherInfo;
-
     private LocalDateTime dateTime;
 
     private String location;
 
-
-    public WithEatTogatherInfo(EatTogatherInfo eatTogatherInfo, LocalDateTime dateTime, String location) {
-        this.eatTogatherInfo = eatTogatherInfo;
+    public WithEatTogatherInfo(LocalDateTime dateTime, String location) {
         this.dateTime = dateTime;
         this.location = location;
     }
@@ -27,7 +23,7 @@ public class WithEatTogatherInfo {
         return location;
     }
 
-    public void validate() {
-        eatTogatherInfo.validateWith(this);
+    public Info convertToInfo() {
+        return new Info(dateTime, location);
     }
 }
