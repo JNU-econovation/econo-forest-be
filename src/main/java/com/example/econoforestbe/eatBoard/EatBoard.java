@@ -18,4 +18,6 @@ public class EatBoard {
     private Title title;
     @Enumerated(EnumType.STRING)
     private LocationCategory locationCategory;
+    @Embedded
+    private EatDateTime eatDateTime;
 }
