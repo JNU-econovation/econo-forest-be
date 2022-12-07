@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Builder
@@ -19,4 +16,6 @@ public class EatBoard {
     private Long id;
     @Embedded
     private Title title;
+    @Enumerated(EnumType.STRING)
+    private LocationCategory locationCategory;
 }
