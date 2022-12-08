@@ -13,7 +13,4 @@ public class JoinInfo {
     private LocalDate eatDateByJoin;
     private LocalTime eatTimeByJoin;
 
-    private boolean compareInfo(EatInfo eatDateTime){
-        return eatDateTime.equals(this);
-    }
 }
