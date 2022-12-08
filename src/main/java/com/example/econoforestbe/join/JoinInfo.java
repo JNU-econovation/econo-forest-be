@@ -1,6 +1,6 @@
 package com.example.econoforestbe.join;
 
-import com.example.econoforestbe.eatBoard.EatDateTime;
+import com.example.econoforestbe.eatBoard.EatInfo;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
@@ -13,7 +13,7 @@ public class JoinInfo {
     private LocalDate eatDateByJoin;
     private LocalTime eatTimeByJoin;
 
-    private boolean compareInfo(EatDateTime eatDateTime){
+    private boolean compareInfo(EatInfo eatDateTime){
         return eatDateTime.equals(this);
     }
 }

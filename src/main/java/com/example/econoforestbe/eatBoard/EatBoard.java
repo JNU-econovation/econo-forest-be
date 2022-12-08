@@ -19,7 +19,7 @@ public class EatBoard {
     @Enumerated(EnumType.STRING)
     private LocationCategory locationCategory;
     @Embedded
-    private EatDateTime eatDateTime;
+    private EatInfo eatDateTime;
     @Embedded
     private EatMembers eatMembers;
 }
