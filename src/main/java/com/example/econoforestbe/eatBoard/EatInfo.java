@@ -10,7 +10,6 @@ import java.util.Objects;
 @Embeddable
 @NoArgsConstructor
 public class EatInfo {
-    private static final Long OVER_DAY = 1L;
     private LocalDate eatDate;
     private LocalTime eatTime;
     private static final String ONLY_SUBSEQUENT_TIME_CREATED = "현재 시간보다 이후 시간으로만 정보 생성가능합니다";
@@ -41,7 +40,15 @@ public class EatInfo {
     }
 
     public boolean isSatisfiedBy(Info info) {
-        return Objects.equals(info, info.getEatDate()) && Objects.equals(eatTime, info.getEatTime());
+        return Objects.equals(info, info.getEatDateByJoin()) && Objects.equals(eatTime, info.getEatTimeByJoin());
     }
+
+    /**
+     * @return boolean 밥 먹는 날짜가 당일 지났는지 확인
+     */
+    public boolean overDate(Info info) {
+        return info.deleteBoard(eatDate);
+    }
+
 }
 
