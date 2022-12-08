@@ -12,7 +12,7 @@ public class JoinEat {
     private Long id;
     private LocalDateTime joinDateTime;
     @Embedded
-    private EatInfoByJoin compareInfoByJoin;
+    private JoinInfo compareInfoByJoin;
     @OneToOne
     private EatBoard eatBoard;
     @Embedded

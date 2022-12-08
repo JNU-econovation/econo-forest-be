@@ -9,7 +9,7 @@ import java.time.LocalTime;
 
 @Embeddable
 @NoArgsConstructor
-public class EatInfoByJoin {
+public class JoinInfo {
     private LocalDate eatDateByJoin;
     private LocalTime eatTimeByJoin;
 
