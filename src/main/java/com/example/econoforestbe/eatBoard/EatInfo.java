@@ -44,6 +44,14 @@ public class EatInfo {
     }
 
     /**
+     *
+     * @return boolean 밥 먹는 날짜/시간 지남 -> 더 이상 참여버튼 누르지 못함
+     */
+    public boolean overTime(Info info){
+        return info.isAfter(eatDate,eatTime);
+    }
+
+    /**
      * @return boolean 밥 먹는 날짜가 당일 지났는지 확인
      */
     public boolean overDate(Info info) {
