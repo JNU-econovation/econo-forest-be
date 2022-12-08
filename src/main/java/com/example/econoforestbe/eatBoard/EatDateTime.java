@@ -6,6 +6,7 @@ import javax.persistence.Embeddable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Period;
+import java.util.Objects;
 
 @Embeddable
 @NoArgsConstructor
@@ -25,6 +26,19 @@ public class EatDateTime {
         if (eatDate.isBefore(LocalDate.now()) || eatTime.isBefore(LocalTime.now())) {
             throw new IllegalArgumentException(ONLY_SUBSEQUENT_TIME_CREATED);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EatDateTime)) return false;
+        EatDateTime that = (EatDateTime) o;
+        return Objects.equals(eatDate, that.eatDate) && Objects.equals(eatTime, that.eatTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(eatDate, eatTime);
     }
 }
 
