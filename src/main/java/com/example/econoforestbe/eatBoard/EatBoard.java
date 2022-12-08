@@ -20,4 +20,6 @@ public class EatBoard {
     private LocationCategory locationCategory;
     @Embedded
     private EatDateTime eatDateTime;
+    @Embedded
+    private EatMembers eatMembers;
 }
