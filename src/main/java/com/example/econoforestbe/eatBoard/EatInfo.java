@@ -39,5 +39,9 @@ public class EatInfo {
     public int hashCode() {
         return Objects.hash(eatDate, eatTime);
     }
+
+    public boolean isSatisfiedBy(Info info) {
+        return Objects.equals(info, info.getEatDate()) && Objects.equals(eatTime, info.getEatTime());
+    }
 }
 
