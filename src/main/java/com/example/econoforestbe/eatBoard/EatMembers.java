@@ -21,7 +21,7 @@ public class EatMembers {
                 .getWriter();
     }
 
-    public List<EatMember> participate(EatMember eatMember) {
+    public List<EatMember> addParticipant(EatMember eatMember) {
         eatMemberList.add(validateDuplicateMember(eatMember));
         return eatMemberList;
     }
