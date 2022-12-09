@@ -26,6 +26,11 @@ public class EatMember {
     }
 
     public boolean isSatisfiedBy(EatParticipate eatParticipate) {
-        return Objects.equals(idpId,eatParticipate.getIdpId());
+        return this.equals(eatParticipate);
     }
+
+    public boolean isMember(EatMember eatMember) {
+        return this.equals(eatMember);
+    }
+
 }
