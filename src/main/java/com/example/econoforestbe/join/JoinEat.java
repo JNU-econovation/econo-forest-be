@@ -5,7 +5,6 @@ import com.example.econoforestbe.eatBoard.EatBoard;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
 public class JoinEat {
     @Id
     @GeneratedValue
