@@ -11,6 +11,7 @@ public class EatMember {
     @GeneratedValue
     private Long id;
     private Long idpId;
+    private boolean isWriter;
 
     @Override
     public boolean equals(Object o) {
@@ -32,5 +33,4 @@ public class EatMember {
     public boolean isMember(EatMember eatMember) {
         return this.equals(eatMember);
     }
-
 }
