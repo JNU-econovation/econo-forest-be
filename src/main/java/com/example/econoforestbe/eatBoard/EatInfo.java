@@ -39,7 +39,7 @@ public class EatInfo {
         return Objects.hash(eatDate, eatTime);
     }
 
-    public boolean isSatisfiedBy(Info info) {
+    public boolean isEqualInfo(Info info) {
         return this.equals(info);
     }
 
