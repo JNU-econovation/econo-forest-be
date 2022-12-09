@@ -7,6 +7,7 @@ import java.util.Objects;
 
 @Entity
 public class EatMember {
+    private static final String NOT_FOUND_WRITER="작성자가 존재하지 않습니다";
     @Id
     @GeneratedValue
     private Long id;
@@ -32,5 +33,12 @@ public class EatMember {
 
     public boolean isMember(EatMember eatMember) {
         return this.equals(eatMember);
+    }
+
+    public EatMember getWriter(){
+        if(this.isWriter){
+            return this;
+        }
+        throw new IllegalArgumentException(NOT_FOUND_WRITER);
     }
 }
