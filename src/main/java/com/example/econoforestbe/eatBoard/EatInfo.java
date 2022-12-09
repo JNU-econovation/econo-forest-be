@@ -40,7 +40,7 @@ public class EatInfo {
     }
 
     public boolean isSatisfiedBy(Info info) {
-        return Objects.equals(info, info.getEatDateByJoin()) && Objects.equals(eatTime, info.getEatTimeByJoin());
+        return this.equals(info);
     }
 
     /**

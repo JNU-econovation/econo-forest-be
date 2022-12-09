@@ -1,16 +1,17 @@
 package com.example.econoforestbe.eatBoard;
 
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Objects;
 
-@Entity
+@Embeddable
+@NoArgsConstructor
 public class EatMember {
     private static final String NOT_FOUND_WRITER="작성자가 존재하지 않습니다";
-    @Id
-    @GeneratedValue
-    private Long id;
     private Long idpId;
     private boolean isWriter;
 
