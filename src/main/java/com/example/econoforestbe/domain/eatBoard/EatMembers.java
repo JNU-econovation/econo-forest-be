@@ -21,15 +21,15 @@ public class EatMembers {
                 .getWriter();
     }
 
-    public List<EatMember> addParticipant(EatParticipate eatParticipate) {
+    public boolean addParticipant(EatParticipate eatParticipate) {
         eatMemberList.add(validateDuplicateMember(eatParticipate));
-        return eatMemberList;
+        return true;
     }
 
     /**
      * 새로 참여하고자 하는 사람이 이미 참여한 사람인지 중복체크
      *
-     * @param eatMember 새로 참여하고자 하는 사람
+     * @param eatParticipate 새로 참여하고자 하는 사람
      */
     private EatMember validateDuplicateMember(EatParticipate eatParticipate) {
         return eatMemberList.stream()

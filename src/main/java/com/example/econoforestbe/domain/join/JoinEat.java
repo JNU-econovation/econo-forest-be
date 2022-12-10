@@ -4,7 +4,6 @@ import com.example.econoforestbe.domain.eatBoard.EatBoard;
 import lombok.Builder;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Builder
 public class JoinEat {
@@ -14,4 +13,8 @@ public class JoinEat {
     private EatBoard eatBoard;
     @Embedded
     private JoinMember joinMember;
+
+    public boolean joinEatBoard(){
+        return eatBoard.getEatMembers().addParticipant(joinMember.convertToEatParticipate());
+    }
 }
