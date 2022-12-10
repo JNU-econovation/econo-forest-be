@@ -1,9 +1,7 @@
-package com.example.econoforestbe.eatBoard;
+package com.example.econoforestbe.domain.eatBoard;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

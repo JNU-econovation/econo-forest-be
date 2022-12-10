@@ -1,4 +1,4 @@
-package com.example.econoforestbe.eatBoard;
+package com.example.econoforestbe.domain.eatBoard;
 
 import lombok.NoArgsConstructor;
 import javax.persistence.Embeddable;

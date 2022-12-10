@@ -1,7 +1,6 @@
-package com.example.econoforestbe.join;
+package com.example.econoforestbe.domain.join;
 
-import com.example.econoforestbe.eatBoard.EatParticipate;
-import com.example.econoforestbe.eatBoard.Info;
+import com.example.econoforestbe.domain.eatBoard.Info;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;

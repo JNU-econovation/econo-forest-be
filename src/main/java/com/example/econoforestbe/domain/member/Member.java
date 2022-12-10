@@ -1,4 +1,4 @@
-package com.example.econoforestbe.member;
+package com.example.econoforestbe.domain.member;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

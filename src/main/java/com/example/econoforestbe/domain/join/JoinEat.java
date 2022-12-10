@@ -1,6 +1,6 @@
-package com.example.econoforestbe.join;
+package com.example.econoforestbe.domain.join;
 
-import com.example.econoforestbe.eatBoard.EatBoard;
+import com.example.econoforestbe.domain.eatBoard.EatBoard;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
