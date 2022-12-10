@@ -14,11 +14,4 @@ public class Info {
     private LocalDate eatDateByJoin;
     private LocalTime eatTimeByJoin;
 
-    public boolean deleteBoard(LocalDate dateBoard) {
-        return eatDateByJoin.isAfter(dateBoard);
-    }
-
-    public boolean isAfter(LocalDate dateBoard, LocalTime dateTime) {
-        return eatDateByJoin.isAfter(dateBoard)&&eatTimeByJoin.isAfter(dateTime);
-    }
 }

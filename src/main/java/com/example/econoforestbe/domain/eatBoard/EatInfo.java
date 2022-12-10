@@ -1,6 +1,7 @@
 package com.example.econoforestbe.domain.eatBoard;
 
 import lombok.NoArgsConstructor;
+import net.bytebuddy.asm.Advice;
 
 import javax.persistence.Embeddable;
 import java.time.LocalDate;
@@ -44,18 +45,17 @@ public class EatInfo {
     }
 
     /**
-     *
      * @return boolean 밥 먹는 날짜/시간 지남 -> 더 이상 참여버튼 누르지 못함
      */
-    public boolean overTime(Info info){
-        return info.isAfter(eatDate,eatTime);
+    public boolean overTime() {
+        return eatTime.isAfter(LocalTime.now());
     }
 
     /**
      * @return boolean 밥 먹는 날짜가 당일 지났는지 확인
      */
-    public boolean overDate(Info info) {
-        return info.deleteBoard(eatDate);
+    public boolean overDate() {
+        return eatDate.isAfter(LocalDate.now()) && eatTime.isAfter(LocalTime.now());
     }
 
 }
