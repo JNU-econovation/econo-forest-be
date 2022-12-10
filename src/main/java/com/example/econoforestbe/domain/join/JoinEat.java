@@ -6,9 +6,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 public class JoinEat {
-    @Id
-    @GeneratedValue
-    private Long id;
     private LocalDateTime joinDateTime;
     @Embedded
     private JoinInfo compareInfoByJoin;
