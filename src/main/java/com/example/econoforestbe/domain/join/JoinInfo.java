@@ -10,10 +10,10 @@ import java.time.LocalTime;
 @Embeddable
 @NoArgsConstructor
 public class JoinInfo {
-    private LocalDate eatDateByJoin=LocalDate.now();
-    private LocalTime eatTimeByJoin=LocalTime.now();
+    private LocalDate eatDateWhenJoin;
+    private LocalTime eatTimeWhenJoin;
 
     public Info convertToInfo() {
-        return new Info(eatDateByJoin,eatTimeByJoin);
+        return new Info(eatDateWhenJoin,eatTimeWhenJoin);
     }
 }
