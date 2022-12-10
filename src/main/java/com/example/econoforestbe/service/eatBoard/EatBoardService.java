@@ -16,6 +16,9 @@ public class EatBoardService {
 
     private final EatBoardRepository eatBoardRepository;
 
+    public EatBoard postEatBoard(EatBoard eatBoard) {
+        return eatBoardRepository.save(eatBoard);
+    }
 
     public EatBoard getEatBoard(Long eatBoardId) {
         Optional<EatBoard> eatBoard=eatBoardRepository.findById(eatBoardId);
