@@ -3,10 +3,13 @@ package com.example.econoforestbe.service.eatBoard;
 import com.example.econoforestbe.domain.eatBoard.EatBoard;
 import com.example.econoforestbe.domain.eatBoard.EatBoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,5 +29,12 @@ public class EatBoardService {
             throw new IllegalArgumentException(NOT_FOUND_EAT_BOARD);
         }
         return eatBoard.get();
+    }
+    @Scheduled(cron = "0 0 0 * * *")
+    public List<EatBoard> deleteByOverDate(){
+        List<EatBoard> eatBoard=eatBoardRepository.findAll();
+        return eatBoard.stream()
+                .filter(x->x.getEatDateTime().overDate())
+                .collect(Collectors.toList());
     }
 }
