@@ -21,8 +21,8 @@ public class EatMembers {
                 .getWriter();
     }
 
-    public List<EatMember> addParticipant(EatMember eatMember) {
-        eatMemberList.add(validateDuplicateMember(eatMember));
+    public List<EatMember> addParticipant(EatParticipate eatParticipate) {
+        eatMemberList.add(validateDuplicateMember(eatParticipate));
         return eatMemberList;
     }
 
@@ -31,9 +31,9 @@ public class EatMembers {
      *
      * @param eatMember 새로 참여하고자 하는 사람
      */
-    private EatMember validateDuplicateMember(EatMember eatMember) {
+    private EatMember validateDuplicateMember(EatParticipate eatParticipate) {
         return eatMemberList.stream()
-                .filter(x -> x.isMember(eatMember))
+                .filter(x -> x.isMember(eatParticipate))
                 .findAny()
                 .orElseThrow(() -> new IllegalArgumentException(DUPLICATE_MEMBER_IN_EAT));
     }
