@@ -13,4 +13,5 @@ public class JoinEatDto {
     private LocalTime eatTimeWhenJoin;
     private Long eatBoardId;
     private Long joinMemberId;
+    private boolean isWriter;
 }
