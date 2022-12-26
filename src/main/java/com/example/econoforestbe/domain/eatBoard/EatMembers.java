@@ -33,7 +33,7 @@ public class EatMembers {
      */
     private EatMember validateDuplicateMember(EatParticipate eatParticipate) {
         return eatMemberList.stream()
-                .filter(x -> x.isMember(eatParticipate))
+                .filter(eatMember -> eatMember.equals(eatParticipate))
                 .findAny()
                 .orElseThrow(() -> new IllegalArgumentException(DUPLICATE_MEMBER_IN_EAT));
     }
