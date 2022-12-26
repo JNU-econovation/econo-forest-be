@@ -2,7 +2,10 @@ package com.example.econoforestbe.service.eatBoard;
 
 import com.example.econoforestbe.domain.eatBoard.EatBoard;
 import com.example.econoforestbe.domain.eatBoard.EatBoardRepository;
+import com.example.econoforestbe.domain.eatBoard.LocationCategory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +32,14 @@ public class EatBoardService {
             throw new IllegalArgumentException(NOT_FOUND_EAT_BOARD);
         }
         return eatBoard.get();
+    }
+
+    public Page<EatBoard> getEatBoardWithLocation(LocationCategory locationCategory, Pageable pageable) {
+        Page<EatBoard> eatBoard=eatBoardRepository.findByLocationCategory(locationCategory,pageable);
+        if (eatBoard.isEmpty()) {
+            throw new IllegalArgumentException(NOT_FOUND_EAT_BOARD);
+        }
+        return eatBoard;
     }
     @Scheduled(cron = "0 0 0 * * *")
     public List<EatBoard> deleteByOverDate(){
