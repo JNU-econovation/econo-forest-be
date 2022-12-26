@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Getter
 public class EatBoard {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Embedded
     private Title title;
