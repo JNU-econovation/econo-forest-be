@@ -11,9 +11,10 @@ import java.util.Objects;
 @Embeddable
 @NoArgsConstructor
 public class EatInfo {
+    private static final String ONLY_SUBSEQUENT_TIME_CREATED = "현재 시간보다 이후 시간으로만 정보 생성가능합니다";
     private LocalDate eatDate;
     private LocalTime eatTime;
-    private static final String ONLY_SUBSEQUENT_TIME_CREATED = "현재 시간보다 이후 시간으로만 정보 생성가능합니다";
+
 
     public EatInfo(LocalDate eatDate, LocalTime eatTime) {
         validateSubsequentTime(eatDate, eatTime);
@@ -31,8 +32,8 @@ public class EatInfo {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof EatInfo)) return false;
-        EatInfo that = (EatInfo) o;
-        return Objects.equals(eatDate, that.eatDate) && Objects.equals(eatTime, that.eatTime);
+        EatInfo compareEatInfo = (EatInfo) o;
+        return Objects.equals(eatDate, compareEatInfo.eatDate) && Objects.equals(eatTime, compareEatInfo.eatTime);
     }
 
     @Override
