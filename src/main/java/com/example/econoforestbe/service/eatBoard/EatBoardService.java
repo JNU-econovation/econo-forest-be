@@ -27,25 +27,12 @@ public class EatBoardService {
     }
 
     public EatBoard getEatBoard(Long eatBoardId) {
-        Optional<EatBoard> eatBoard=eatBoardRepository.findById(eatBoardId);
-        if (eatBoard.isEmpty()) {
-            throw new IllegalArgumentException(NOT_FOUND_EAT_BOARD);
-        }
-        return eatBoard.get();
+        return eatBoardRepository.findById(eatBoardId)
+                .orElseThrow(()->new IllegalArgumentException(NOT_FOUND_EAT_BOARD));
     }
 
     public Page<EatBoard> getEatBoardWithLocation(LocationCategory locationCategory, Pageable pageable) {
-        Page<EatBoard> eatBoard=eatBoardRepository.findByLocationCategory(locationCategory,pageable);
-        if (eatBoard.isEmpty()) {
-            throw new IllegalArgumentException(NOT_FOUND_EAT_BOARD);
-        }
-        return eatBoard;
+        return eatBoardRepository.findByLocationCategory(locationCategory,pageable);
     }
-    @Scheduled(cron = "0 0 0 * * *")
-    public List<EatBoard> deleteByOverDate(){
-        List<EatBoard> eatBoard=eatBoardRepository.findAll();
-        return eatBoard.stream()
-                .filter(x->x.getEatDateTime().overDate())
-                .collect(Collectors.toList());
-    }
+
 }
