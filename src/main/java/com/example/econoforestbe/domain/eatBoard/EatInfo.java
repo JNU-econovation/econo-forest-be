@@ -1,5 +1,6 @@
 package com.example.econoforestbe.domain.eatBoard;
 
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import net.bytebuddy.asm.Advice;
 
@@ -10,6 +11,7 @@ import java.util.Objects;
 
 @Embeddable
 @NoArgsConstructor
+@Builder
 public class EatInfo {
     private static final String ONLY_SUBSEQUENT_TIME_CREATED = "현재 시간보다 이후 시간으로만 정보 생성가능합니다";
     private LocalDate eatDate;
@@ -57,6 +59,13 @@ public class EatInfo {
      */
     public boolean overDate() {
         return eatDate.isAfter(LocalDate.now()) && eatTime.isAfter(LocalTime.now());
+    }
+
+    public Info convertToInfo(){
+        return Info.builder()
+                .eatDate(eatDate)
+                .eatTime(eatTime)
+                .build();
     }
 
 }

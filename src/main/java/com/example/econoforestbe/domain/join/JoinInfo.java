@@ -17,6 +17,9 @@ public class JoinInfo {
     private LocalTime eatTimeWhenJoin;
 
     public Info convertToInfo() {
-        return new Info(eatDateWhenJoin,eatTimeWhenJoin);
+        return Info.builder()
+                .eatDate(eatDateWhenJoin)
+                .eatTime(eatTimeWhenJoin)
+                .build();
     }
 }
