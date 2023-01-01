@@ -24,7 +24,7 @@ public enum LocationCategory {
      * @param location 위치 카테고리
      * @return LocationCategory
      */
-    public LocationCategory hasCategory(String location) {
+    public static LocationCategory hasCategory(String location) {
         return Arrays.stream(LocationCategory.values())
                 .filter(x -> x.getLocation().equals(location))
                 .findAny()

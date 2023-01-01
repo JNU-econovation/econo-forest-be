@@ -18,7 +18,7 @@ public class EatBoardMapper {
                 .title(toTitle(createEatDto.getTitle()))
                 .locationCategory(LocationCategory.hasCategory(createEatDto.getLocationCategory()))
                 .eatInfo(toEatInfo(createEatDto.getEatDate(),createEatDto.getEatTime()))
-                .eatMembers(toEatMembers(createEatDto.getEatMemberId()))
+                .eatMembers(toEatMembers(createEatDto.getIdpId()))
                 .build();
     }
 
