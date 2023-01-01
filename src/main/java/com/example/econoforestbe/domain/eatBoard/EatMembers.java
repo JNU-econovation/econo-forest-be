@@ -1,5 +1,7 @@
 package com.example.econoforestbe.domain.eatBoard;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
@@ -10,6 +12,8 @@ import java.util.List;
 
 @Embeddable
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class EatMembers {
     private static final String DUPLICATE_MEMBER_IN_EAT = "이미 해당 밥먹어요에 참여한 사람입니다";
     private static final int WRITER_INDEX = 0;
@@ -21,9 +25,9 @@ public class EatMembers {
                 .getWriter();
     }
 
-    public boolean addParticipant(EatParticipate eatParticipate) {
-        eatMemberList.add(validateDuplicateMember(eatParticipate));
-        return true;
+    public List<EatMember> addParticipant(EatMember eatMember) {
+        eatMemberList.add(validateDuplicateMember(eatMember));
+        return eatMemberList;
     }
 
     /**
@@ -31,9 +35,9 @@ public class EatMembers {
      *
      * @param eatParticipate 새로 참여하고자 하는 사람
      */
-    private EatMember validateDuplicateMember(EatParticipate eatParticipate) {
+    private EatMember validateDuplicateMember(EatMember eatMember) {
         return eatMemberList.stream()
-                .filter(eatMember -> eatMember.equals(eatParticipate))
+                .filter(member -> member.equals(eatMember))
                 .findAny()
                 .orElseThrow(() -> new IllegalArgumentException(DUPLICATE_MEMBER_IN_EAT));
     }
