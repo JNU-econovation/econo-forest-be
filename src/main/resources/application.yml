@@ -10,8 +10,11 @@ spring:
       ddl-auto: create
     properties:
       hibernate:
-#        show_sql: true
+        #        show_sql: true
         format_sql: true
+  kafka:
+    listener:
+      idle-partition-event-interval:
 
 logging.level:
   org.hibernate.SQL: debug
@@ -19,6 +22,11 @@ logging.level:
 #  org.hibernate.type: trace
 #  org.hibernate.type.descriptor.sql: trace
 
+
+# IDP 서버 요청
+idp:
+  api:
+    uri: "http://168.131.30.127:8080/swagger-ui/index.html"
 
 server:
   servlet:
