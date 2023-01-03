@@ -6,6 +6,7 @@ import com.example.econoforestbe.web.dto.EatBoardResponseDto;
 import com.example.econoforestbe.web.dto.SaveEatDto;
 import com.example.econoforestbe.web.dto.UpdateEatDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -14,6 +15,7 @@ import java.awt.print.Pageable;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class EatBoardService {
     private static final String NOT_FOUND_BOARD = "존재하지 않는 밥 먹어요 글입니다.";
     private final EatBoardRepository eatBoardRepository;
@@ -34,9 +36,10 @@ public class EatBoardService {
         boolean isWriter = eatBoard.getEatMembers().getWriter().equals(1L);
         if (isWriter) {
             eatBoardRepository.delete(eatBoard);
+            log.info("deleteEatBoard : 밥 먹어요 게시글 삭제 완료");
             return true;
         }
-        return false;
+        throw new IllegalArgumentException("작성자가 아니라서 삭제 권한 없습니다");
     }
 
     public boolean updateEatBoard(UpdateEatDto updateEatDto) {

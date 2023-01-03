@@ -17,7 +17,7 @@ public class EatBoardController {
     private final EatBoardService eatBoardService;
 
     @PostMapping("/board")
-    public ResponseEntity<EatBoard> createEatBoard(@RequestBody SaveEatDto saveEatDto) {
+    public ResponseEntity<EatBoard> createEatBoard(@RequestHeader(value = "Authorization")String accessToken, @RequestBody SaveEatDto saveEatDto) {
         EatBoard newEatBoard = eatBoardService.createEatBoard(saveEatDto);
         URI uri= ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("{boardId}")
@@ -25,6 +25,11 @@ public class EatBoardController {
                 .toUri();
         return ResponseEntity.created(uri)
                 .body(newEatBoard);
-
     }
+
+    @DeleteMapping("/board/{eatBoardId}")
+    public void deleteEatBoard(@RequestHeader(value = "Authorization")String accessToken, @PathVariable Long eatBoardId){
+        eatBoardService.deleteEatBoard(eatBoardId);
+    }
+
 }
