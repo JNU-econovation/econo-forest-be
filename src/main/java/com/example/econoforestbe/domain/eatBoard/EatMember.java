@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -23,14 +20,15 @@ public class EatMember {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long idpId;
-    private boolean isWriter;
+    @Enumerated(EnumType.STRING)
+    private EatMemberType eatMemberType;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof EatMember)) return false;
         EatMember eatMember = (EatMember) o;
-        return isWriter == eatMember.isWriter && Objects.equals(idpId,eatMember.getIdpId());
+        return eatMemberType == eatMember.eatMemberType && Objects.equals(idpId,eatMember.getIdpId());
     }
 
     @Override
@@ -38,9 +36,9 @@ public class EatMember {
         return Objects.hash(idpId, getWriter());
     }
 
-    public EatMember getWriter(){
-        if(this.isWriter){
-            return this;
+    public Long getWriter(){
+        if(this.eatMemberType.equals(EatMemberType.AUTHOR)){
+            return this.idpId;
         }
         throw new IllegalArgumentException(NOT_FOUND_WRITER);
     }
