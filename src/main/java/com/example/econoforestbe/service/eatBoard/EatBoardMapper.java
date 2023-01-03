@@ -1,27 +1,23 @@
 package com.example.econoforestbe.service.eatBoard;
 
 import com.example.econoforestbe.domain.eatBoard.*;
-import com.example.econoforestbe.domain.member.Member;
-import com.example.econoforestbe.web.dto.CreateEatDto;
+import com.example.econoforestbe.web.dto.SaveEatDto;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-//TODO : createEatDto idpId -> AccessToken으로 변경
 public class EatBoardMapper {
-    public EatBoard mapFrom(CreateEatDto createEatDto){
+    public EatBoard mapFrom(SaveEatDto saveEatDto){
         return EatBoard.builder()
-                .title(toTitle(createEatDto.getTitle()))
-                .locationCategory(LocationCategory.hasCategory(createEatDto.getLocationCategory()))
-                .eatInfo(toEatInfo(createEatDto.getEatDate(),createEatDto.getEatTime()))
-                .eatMembers(toEatMembers(createEatDto.getIdpId()))
+                .title(toTitle(saveEatDto.getTitle()))
+                .locationCategory(LocationCategory.hasCategory(saveEatDto.getLocationCategory()))
+                .eatMembers(toEatMembers(1L))
                 .build();
     }
 
+    //TODO : IDP Id 하드코딩 한 부분 변경
     private EatMembers toEatMembers(Long idpId){
         return EatMembers.builder()
                 .eatMemberList(eatMembers(idpId))
@@ -31,7 +27,7 @@ public class EatBoardMapper {
     private EatMember toEatMember(Long idpId){
         return EatMember.builder()
                 .idpId(idpId)
-                .isWriter(true)
+                .eatMemberType(EatMemberType.AUTHOR)
                 .build();
     }
 
@@ -44,13 +40,6 @@ public class EatBoardMapper {
     private Title toTitle(String title){
         return Title.builder()
                 .title(title)
-                .build();
-    }
-
-    private EatInfo toEatInfo(LocalDate eatDate, LocalTime eatTime){
-        return EatInfo.builder()
-                .eatDate(eatDate)
-                .eatTime(eatTime)
                 .build();
     }
 }
