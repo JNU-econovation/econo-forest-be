@@ -19,7 +19,7 @@ public class EatBoardService {
     private final EatBoardRepository eatBoardRepository;
     private final EatBoardMapper eatBoardMapper;
 
-    //TODO : Access Token으로 요청해서 정보 받아오는 걸로 변경
+    //TODO : idpId랑 연결
     public EatBoard createEatBoard(SaveEatDto saveEatDto) {
         EatBoard requestEatBoard = eatBoardMapper.mapFrom(saveEatDto);
         EatBoard savedEatBoard = eatBoardRepository.save(requestEatBoard);

@@ -6,5 +6,5 @@ import lombok.Getter;
 public class SaveEatDto {
     private String title;
     private String locationCategory;
-    private String eatDateTime;
+    private Long eatDateTime;
 }
