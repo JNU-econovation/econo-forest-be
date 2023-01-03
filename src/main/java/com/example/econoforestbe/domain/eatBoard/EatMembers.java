@@ -20,25 +20,34 @@ public class EatMembers {
     @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<EatMember> eatMemberList = new ArrayList<>();
 
-    public EatMember getWriter() {
+    public Long getWriter() {
         return eatMemberList.get(WRITER_INDEX)
                 .getWriter();
+
     }
 
+    /**
+     *
+     * @param eatMember 참여하고자 하는 사람
+     * @return 해당 글의 참여자들 목록
+     */
     public List<EatMember> addParticipant(EatMember eatMember) {
-        eatMemberList.add(validateDuplicateMember(eatMember));
+        validateDuplicateMember(eatMember);
+        eatMemberList.add(eatMember);
         return eatMemberList;
     }
 
     /**
-     * 새로 참여하고자 하는 사람이 이미 참여한 사람인지 중복체크
      *
-     * @param eatParticipate 새로 참여하고자 하는 사람
+     * @param eatMember 참여하고자 하는 사람
+     * @return 중복되지 않은 사람이라면 EatMemeber 리턴
      */
-    private EatMember validateDuplicateMember(EatMember eatMember) {
-        return eatMemberList.stream()
+    private void validateDuplicateMember(EatMember eatMember) {
+        eatMemberList.stream()
                 .filter(member -> member.equals(eatMember))
                 .findAny()
-                .orElseThrow(() -> new IllegalArgumentException(DUPLICATE_MEMBER_IN_EAT));
+                .ifPresent(eatMember1 -> {
+                    throw new IllegalArgumentException(DUPLICATE_MEMBER_IN_EAT);
+                });
     }
 }
