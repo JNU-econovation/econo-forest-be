@@ -1,6 +1,7 @@
 package com.example.econoforestbe.domain.eatBoard;
 
 import com.example.econoforestbe.domain.Timestamped;
+import com.example.econoforestbe.util.EpochTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,6 +10,8 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+
+import static com.example.econoforestbe.util.EpochTime.toLocalDateTime;
 
 @Entity
 @Builder
@@ -33,4 +36,9 @@ public class EatBoard extends Timestamped {
     @Embedded
     private EatInfo eatInfo;
 
+    public void update(String title, String locationCategory, Long eatInfo){
+        this.title=new Title(title);
+        this.locationCategory=LocationCategory.hasCategory(locationCategory);
+        this.eatInfo=new EatInfo(toLocalDateTime(eatInfo));
+    }
 }
