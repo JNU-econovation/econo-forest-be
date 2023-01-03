@@ -1,31 +1,33 @@
 package com.example.econoforestbe.domain.eatBoard;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.bytebuddy.asm.Advice;
 
 import javax.persistence.Embeddable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
 
 @Embeddable
 @NoArgsConstructor
 @Builder
+@Getter
 public class EatInfo {
     private static final String ONLY_SUBSEQUENT_TIME_CREATED = "현재 시간보다 이후 시간으로만 정보 생성가능합니다";
-    private LocalDate eatDate;
-    private LocalTime eatTime;
+    private static final String NOT_MATCH_EAT_BOARD_STATUS ="해당 밥 먹어요 글이 수정되었습니다.";
+    private LocalDateTime eatDateTime;
 
 
-    public EatInfo(LocalDate eatDate, LocalTime eatTime) {
-        validateSubsequentTime(eatDate, eatTime);
-        this.eatDate = eatDate;
-        this.eatTime = eatTime;
+    public EatInfo(LocalDateTime localDateTime) {
+        validateSubsequentTime(localDateTime);
+        this.eatDateTime = localDateTime;
     }
 
-    private void validateSubsequentTime(LocalDate eatDate, LocalTime eatTime) {
-        if (eatDate.isBefore(LocalDate.now()) || eatTime.isBefore(LocalTime.now())) {
+    private void validateSubsequentTime(LocalDateTime localDateTime) {
+        if (localDateTime.isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException(ONLY_SUBSEQUENT_TIME_CREATED);
         }
     }
@@ -35,37 +37,24 @@ public class EatInfo {
         if (this == o) return true;
         if (!(o instanceof EatInfo)) return false;
         EatInfo compareEatInfo = (EatInfo) o;
-        return Objects.equals(eatDate, compareEatInfo.eatDate) && Objects.equals(eatTime, compareEatInfo.eatTime);
+        return Objects.equals(eatDateTime, compareEatInfo.eatDateTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(eatDate, eatTime);
+        return Objects.hash(eatDateTime);
     }
 
-    public boolean isEqualInfo(Info info) {
-        return this.equals(info);
-    }
-
-    /**
-     * @return boolean 밥 먹는 날짜/시간 지남 -> 더 이상 참여버튼 누르지 못함
-     */
-    public boolean overTime() {
-        return eatTime.isAfter(LocalTime.now());
-    }
-
-    /**
-     * @return boolean 밥 먹는 날짜가 당일 지났는지 확인
-     */
-    public boolean overDate() {
-        return eatDate.isAfter(LocalDate.now()) && eatTime.isAfter(LocalTime.now());
-    }
-
-    public Info convertToInfo(){
+    private Info convertToInfo() {
         return Info.builder()
-                .eatDate(eatDate)
-                .eatTime(eatTime)
+                .localDateTime(eatDateTime)
                 .build();
+    }
+
+    public void validateStatus(Info info) {
+        if (!this.convertToInfo().equals(info)) {
+            throw new IllegalArgumentException(NOT_MATCH_EAT_BOARD_STATUS);
+        }
     }
 
 }
