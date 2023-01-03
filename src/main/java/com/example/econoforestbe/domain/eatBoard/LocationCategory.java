@@ -3,20 +3,20 @@ package com.example.econoforestbe.domain.eatBoard;
 import java.util.Arrays;
 
 public enum LocationCategory {
-    MAIN_GATE("정문"),
-    BACK_GATE("후문"),
-    BUSINESS_GATE("상대"),
-    ENGINEERING_GATE("공대"),
-    ART_GATE("예대");
+    MAIN_GATE("MainGate"),
+    BACK_GATE("BackGate"),
+    BUSINESS_GATE("BusinessGate"),
+    ENGINEERING_GATE("EngineeringGate"),
+    ART_GATE("ArtGate");
 
     private static final String NOT_FOUND_LOCATION_CATEGORY = "해당 위치 카테고리는 없습니다";
-    private final String location;
+    private String location;
 
-    LocationCategory(String location) {
-        this.location = location;
+    LocationCategory(String location){
+        this.location=location;
     }
 
-    private String getLocation() {
+    public String getLocation(){
         return location;
     }
 
@@ -26,7 +26,7 @@ public enum LocationCategory {
      */
     public static LocationCategory hasCategory(String location) {
         return Arrays.stream(LocationCategory.values())
-                .filter(x -> x.getLocation().equals(location))
+                .filter(x->x.getLocation().equals(location))
                 .findAny()
                 .orElseThrow(() -> new RuntimeException(NOT_FOUND_LOCATION_CATEGORY));
     }
