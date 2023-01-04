@@ -23,7 +23,7 @@ public class EatBoardController {
     public ResponseEntity<EatBoard> createEatBoard(@RequestHeader(value = "Authorization") String accessToken, @RequestBody EatReqDto eatReqDto) {
         EatBoard newEatBoard = eatBoardService.createEatBoard(eatReqDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("{boardId}")
+                .path("/{boardId}")
                 .buildAndExpand(newEatBoard.getId())
                 .toUri();
         return ResponseEntity.created(uri)
