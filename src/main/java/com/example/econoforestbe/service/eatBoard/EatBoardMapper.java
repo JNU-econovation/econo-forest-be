@@ -2,7 +2,7 @@ package com.example.econoforestbe.service.eatBoard;
 
 import com.example.econoforestbe.domain.eatBoard.*;
 import com.example.econoforestbe.util.EpochTime;
-import com.example.econoforestbe.web.dto.SaveEatDto;
+import com.example.econoforestbe.web.dto.EatReqDto;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -10,13 +10,13 @@ import java.util.List;
 
 @Component
 public class EatBoardMapper {
-    public EatBoard mapFrom(SaveEatDto saveEatDto){
+    public EatBoard mapFrom(EatReqDto eatReqDto){
         return EatBoard.builder()
-                .title(toTitle(saveEatDto.getTitle()))
-                .locationCategory(LocationCategory.hasCategory(saveEatDto.getLocationCategory()))
+                .title(toTitle(eatReqDto.getTitle()))
+                .locationCategory(LocationCategory.hasCategory(eatReqDto.getLocationCategory()))
                 .eatMembers(toEatMembers(1L))
                 .eatInfo(EatInfo.builder()
-                        .eatDateTime(EpochTime.toLocalDateTime(saveEatDto.getEatDateTime()))
+                        .eatDateTime(EpochTime.toLocalDateTime(eatReqDto.getEatDateTime()))
                         .build())
                 .build();
     }

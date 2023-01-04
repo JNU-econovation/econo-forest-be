@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -21,7 +22,7 @@ public class EatBoardController {
     private final EatBoardService eatBoardService;
 
     @PostMapping("")
-    public ResponseEntity<EatBoard> createEatBoard(@RequestHeader(value = "Authorization") String accessToken, @RequestBody SaveEatDto saveEatDto) {
+    public ResponseEntity<EatBoard> createEatBoard(@RequestHeader(value = "Authorization") String accessToken, @Valid @RequestBody SaveEatDto saveEatDto) {
         EatBoard newEatBoard = eatBoardService.createEatBoard(saveEatDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("{boardId}")
