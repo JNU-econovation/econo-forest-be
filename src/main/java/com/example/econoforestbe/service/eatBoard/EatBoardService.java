@@ -42,14 +42,11 @@ public class EatBoardService {
     }
 
     public EatBoard updateEatBoard(Long eatBoardId, EatReqDto eatReqDto) {
-        //TODO : access Token으로 삭제 접근 권한 확인
-        EatBoard eatBoard = eatBoardRepository.findById(eatBoardId)
-                .orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_BOARD));
+        deleteEatBoard(eatBoardId);
+        log.info("updateEatBoard : 기존 밥 먹어요 게시글 삭제 완료");
 
-        eatBoardRepository.delete(eatBoard);
-        log.info("기존 밥 먹어요 게시글 삭제 완료");
-        EatBoard updateEatBoard = eatBoardRepository.save(eatBoard);
-        log.info("새로운 밥 먹어요 게시글 생성");
+        EatBoard updateEatBoard = createEatBoard(eatReqDto);
+        log.info("updateEatBoard : 새로운 밥 먹어요 게시글 생성하여 글 수정 완료");
         return updateEatBoard;
     }
 
