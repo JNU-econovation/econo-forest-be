@@ -39,7 +39,8 @@ public class EatBoardController {
     public ResponseEntity<Object> updateEatBoard(@RequestHeader(value = "Authorization") String accessToken, @PathVariable Long eatBoardId, @RequestBody EatReqDto eatReqDto) {
         EatBoard updateEatBoard = eatBoardService.updateEatBoard(eatBoardId, eatReqDto);
         log.info("게시글 수정 완료");
-        URI uri=ServletUriComponentsBuilder.fromCurrentRequestUri()
+        URI uri=ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("api/eatBoard/{eatBoardId}")
                 .buildAndExpand(updateEatBoard.getId())
                 .toUri();
         log.info("uri 만들었습니다."+String.valueOf(uri));
