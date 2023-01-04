@@ -2,11 +2,9 @@ package com.example.econoforestbe.web.controller;
 
 import com.example.econoforestbe.domain.eatBoard.EatBoard;
 import com.example.econoforestbe.service.eatBoard.EatBoardService;
-import com.example.econoforestbe.web.dto.SaveEatDto;
-import com.example.econoforestbe.web.dto.UpdateEatDto;
+import com.example.econoforestbe.web.dto.EatReqDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -22,8 +20,8 @@ public class EatBoardController {
     private final EatBoardService eatBoardService;
 
     @PostMapping("")
-    public ResponseEntity<EatBoard> createEatBoard(@RequestHeader(value = "Authorization") String accessToken, @Valid @RequestBody SaveEatDto saveEatDto) {
-        EatBoard newEatBoard = eatBoardService.createEatBoard(saveEatDto);
+    public ResponseEntity<EatBoard> createEatBoard(@RequestHeader(value = "Authorization") String accessToken, @RequestBody EatReqDto eatReqDto) {
+        EatBoard newEatBoard = eatBoardService.createEatBoard(eatReqDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("{boardId}")
                 .buildAndExpand(newEatBoard.getId())
@@ -38,8 +36,8 @@ public class EatBoardController {
     }
 
     @PostMapping("/{eatBoardId}")
-    public ResponseEntity<Object> updateEatBoard(@RequestHeader(value = "Authorization") String accessToken, @PathVariable Long eatBoardId, @RequestBody UpdateEatDto updateEatDto) {
-        EatBoard updateEatBoard = eatBoardService.updateEatBoard(eatBoardId, updateEatDto);
+    public ResponseEntity<Object> updateEatBoard(@RequestHeader(value = "Authorization") String accessToken, @PathVariable Long eatBoardId, @RequestBody EatReqDto eatReqDto) {
+        EatBoard updateEatBoard = eatBoardService.updateEatBoard(eatBoardId, eatReqDto);
         URI uri=ServletUriComponentsBuilder.fromCurrentRequestUri()
                 .buildAndExpand(updateEatBoard.getId())
                 .toUri();

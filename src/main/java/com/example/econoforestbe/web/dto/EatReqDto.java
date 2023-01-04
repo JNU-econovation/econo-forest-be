@@ -8,6 +8,5 @@ import javax.validation.constraints.Future;
 public class EatReqDto {
     private String title;
     private String locationCategory;
-    @Future
     private Long eatDateTime;
 }
