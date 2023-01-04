@@ -14,9 +14,6 @@ public class Timestamped {
     @CreatedDate
     private LocalDate createdAt;
 
-    @LastModifiedDate
-    private LocalDate modifiedAt;
-
     private LocalDate deletedAt;
 }
 

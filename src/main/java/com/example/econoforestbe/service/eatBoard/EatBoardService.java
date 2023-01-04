@@ -24,7 +24,9 @@ public class EatBoardService {
     //TODO : idpId랑 연결
     public EatBoard createEatBoard(SaveEatDto saveEatDto) {
         EatBoard requestEatBoard = eatBoardMapper.mapFrom(saveEatDto);
+        log.info("dto -> entity로 변환 완료");
         EatBoard savedEatBoard = eatBoardRepository.save(requestEatBoard);
+        log.info("entity repo에 저장 완료");
 
         return savedEatBoard;
     }
@@ -42,13 +44,16 @@ public class EatBoardService {
         throw new IllegalArgumentException("작성자가 아니라서 삭제 권한 없습니다");
     }
 
-    public boolean updateEatBoard(UpdateEatDto updateEatDto) {
+    public EatBoard updateEatBoard(Long eatBoardId, UpdateEatDto updateEatDto) {
         //TODO : access Token으로 삭제 접근 권한 확인
-        EatBoard eatBoard = eatBoardRepository.findById(updateEatDto.getBoardId())
+        EatBoard eatBoard = eatBoardRepository.findById(eatBoardId)
                 .orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_BOARD));
 
-        eatBoard.update(updateEatDto.getTitle(), updateEatDto.getLocation(), updateEatDto.getDate());
-        return true;
+        eatBoardRepository.delete(eatBoard);
+        log.info("기존 밥 먹어요 게시글 삭제 완료");
+        EatBoard updateEatBoard = eatBoardRepository.save(eatBoard);
+        log.info("새로운 밥 먹어요 게시글 생성");
+        return updateEatBoard;
     }
 
 }

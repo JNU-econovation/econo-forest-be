@@ -35,10 +35,4 @@ public class EatBoard extends Timestamped {
     private EatMembers eatMembers;
     @Embedded
     private EatInfo eatInfo;
-
-    public void update(String title, String locationCategory, Long eatInfo){
-        this.title=new Title(title);
-        this.locationCategory=LocationCategory.hasCategory(locationCategory);
-        this.eatInfo=new EatInfo(toLocalDateTime(eatInfo));
-    }
 }
