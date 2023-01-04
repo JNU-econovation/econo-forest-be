@@ -5,9 +5,13 @@ import com.example.econoforestbe.domain.eatBoard.EatBoardRepository;
 import com.example.econoforestbe.web.dto.EatReqDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -50,4 +54,23 @@ public class EatBoardService {
         return updateEatBoard;
     }
 
+    @Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul")
+    public void deleteEatBoardByAuto() {
+        log.info("deleteEatBoardByAuto : 실행");
+        List<EatBoard> eatBoardList = eatBoardRepository.findAll()
+                .stream().filter(eatBoard -> eatBoard.getEatInfo().overDate())
+                .collect(Collectors.toList());
+
+        eatBoardRepository.deleteAll(eatBoardList);
+        log.info("deleteEatBoardByAuto : 스케줄링으로 시간이 지난 거 자동 삭제 완료");
+
+    }
+
+//    /**
+//     * 1초마다 한 번씩 해당 메서드 호출할 수 있도록
+//     */
+//    @Scheduled(cron = "0/10 * * * * ?", zone = "Asia/Seoul")
+//    public void testSChedule() {
+//        log.info("1분마다 실행 => time : " + LocalTime.now());
+//    }
 }
