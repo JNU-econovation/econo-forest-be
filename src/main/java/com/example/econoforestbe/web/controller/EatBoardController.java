@@ -20,14 +20,14 @@ public class EatBoardController {
     private final EatBoardService eatBoardService;
 
     @PostMapping("")
-    public ResponseEntity<EatBoard> createEatBoard(@RequestHeader(value = "Authorization") String accessToken, @RequestBody EatReqDto eatReqDto) {
+    public ResponseEntity<Object> createEatBoard(@RequestHeader(value = "Authorization") String accessToken, @RequestBody EatReqDto eatReqDto) {
         EatBoard newEatBoard = eatBoardService.createEatBoard(eatReqDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{boardId}")
                 .buildAndExpand(newEatBoard.getId())
                 .toUri();
         return ResponseEntity.created(uri)
-                .body(newEatBoard);
+                .build();
     }
 
     @DeleteMapping("/{eatBoardId}")
@@ -38,11 +38,11 @@ public class EatBoardController {
     @PostMapping("/{eatBoardId}")
     public ResponseEntity<Object> updateEatBoard(@RequestHeader(value = "Authorization") String accessToken, @PathVariable Long eatBoardId, @RequestBody EatReqDto eatReqDto) {
         EatBoard updateEatBoard = eatBoardService.updateEatBoard(eatBoardId, eatReqDto);
+        log.info("게시글 수정 완료");
         URI uri=ServletUriComponentsBuilder.fromCurrentRequestUri()
                 .buildAndExpand(updateEatBoard.getId())
                 .toUri();
-
-        log.info(String.valueOf(uri));
+        log.info("uri 만들었습니다."+String.valueOf(uri));
         return ResponseEntity.created(uri)
                 .build();
     }
