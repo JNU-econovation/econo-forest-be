@@ -2,19 +2,17 @@ package com.example.econoforestbe.domain.join;
 
 import com.example.econoforestbe.domain.eatBoard.EatBoard;
 import lombok.Builder;
+import lombok.Getter;
 
 import javax.persistence.*;
 
 @Builder
+@Getter
 public class JoinEat {
     @Embedded
     private JoinInfo compareInfoByJoin;
     @OneToOne
-    private EatBoard eatBoard;
+    private Long eatBoardId;
     @Embedded
     private JoinMember joinMember;
-
-    public boolean joinEatBoard(){
-        return eatBoard.getEatMembers().addParticipant(joinMember.convertToEatParticipate());
-    }
 }
