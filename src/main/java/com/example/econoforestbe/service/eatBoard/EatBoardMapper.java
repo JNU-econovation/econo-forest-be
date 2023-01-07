@@ -2,9 +2,11 @@ package com.example.econoforestbe.service.eatBoard;
 
 import com.example.econoforestbe.domain.eatBoard.*;
 import com.example.econoforestbe.util.EpochTime;
+import com.example.econoforestbe.web.dto.EatBoardResponseDto;
 import com.example.econoforestbe.web.dto.EatReqDto;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 

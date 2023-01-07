@@ -76,12 +76,4 @@ public class EatBoardService {
                 .collect(Collectors.toList());
     }
 
-//    /**
-//     * 1초마다 한 번씩 해당 메서드 호출할 수 있도록
-//     */
-//    @Scheduled(cron = "0/10 * * * * ?", zone = "Asia/Seoul")
-//    public void testSChedule() {
-//        log.info("1분마다 실행 => time : " + LocalTime.now());
-//    }
-//    }
 }
