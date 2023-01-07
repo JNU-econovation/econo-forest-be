@@ -8,6 +8,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 @SpringBootApplication
 @EnableJpaAuditing
+@EnableScheduling
 public class EconoForestBeApplication {
 
 	public static void main(String[] args) {

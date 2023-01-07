@@ -2,15 +2,19 @@ package com.example.econoforestbe.web.controller;
 
 import com.example.econoforestbe.domain.eatBoard.EatBoard;
 import com.example.econoforestbe.service.eatBoard.EatBoardService;
+import com.example.econoforestbe.web.dto.EatBoardResponseDto;
 import com.example.econoforestbe.web.dto.EatReqDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,13 +43,21 @@ public class EatBoardController {
     public ResponseEntity<Object> updateEatBoard(@RequestHeader(value = "Authorization") String accessToken, @PathVariable Long eatBoardId, @RequestBody EatReqDto eatReqDto) {
         EatBoard updateEatBoard = eatBoardService.updateEatBoard(eatBoardId, eatReqDto);
         log.info("게시글 수정 완료");
-        URI uri=ServletUriComponentsBuilder.fromCurrentContextPath()
+        URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("api/eatBoard/{eatBoardId}")
                 .buildAndExpand(updateEatBoard.getId())
                 .toUri();
-        log.info("uri 만들었습니다."+String.valueOf(uri));
+        log.info("uri 만들었습니다." + String.valueOf(uri));
         return ResponseEntity.created(uri)
                 .build();
     }
 
+    @GetMapping("")
+    public ResponseEntity<List<EatBoardResponseDto>> getEatBoard(@RequestHeader(value = "Authorization") String accessToken,
+                                                                 @PageableDefault(direction = Sort.Direction.ASC)Pageable pageable) {
+        log.info("페이징 불러오기");
+        return ResponseEntity.ok()
+                        .body(eatBoardService.getEatBoard(pageable));
+
+    }
 }

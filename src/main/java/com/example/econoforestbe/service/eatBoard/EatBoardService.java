@@ -2,15 +2,18 @@ package com.example.econoforestbe.service.eatBoard;
 
 import com.example.econoforestbe.domain.eatBoard.EatBoard;
 import com.example.econoforestbe.domain.eatBoard.EatBoardRepository;
+import com.example.econoforestbe.web.dto.EatBoardResponseDto;
 import com.example.econoforestbe.web.dto.EatReqDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,10 +28,7 @@ public class EatBoardService {
     //TODO : idpId랑 연결
     public EatBoard createEatBoard(EatReqDto eatReqDto) {
         EatBoard requestEatBoard = eatBoardMapper.mapFrom(eatReqDto);
-        log.info("dto -> entity로 변환 완료");
         EatBoard savedEatBoard = eatBoardRepository.save(requestEatBoard);
-        log.info("entity repo에 저장 완료");
-
         return savedEatBoard;
     }
 
@@ -58,12 +58,22 @@ public class EatBoardService {
     public void deleteEatBoardByAuto() {
         log.info("deleteEatBoardByAuto : 실행");
         List<EatBoard> eatBoardList = eatBoardRepository.findAll()
-                .stream().filter(eatBoard -> eatBoard.getEatInfo().overDate())
+                .stream().filter(eatBoard -> eatBoard.getEatInfo().isBefore())
                 .collect(Collectors.toList());
+        log.info(String.valueOf(eatBoardList.size()));
 
-        eatBoardRepository.deleteAll(eatBoardList);
-        log.info("deleteEatBoardByAuto : 스케줄링으로 시간이 지난 거 자동 삭제 완료");
+        if (eatBoardList.size() != 0) {
+            eatBoardRepository.deleteAll(eatBoardList);
+            log.info("deleteEatBoardByAuto : 스케줄링으로 시간이 지난 거 자동 삭제 완료");
+        }
+        log.info(String.valueOf(eatBoardList.size()));
+    }
 
+    public List<EatBoardResponseDto> getEatBoard(Pageable pageable) {
+        log.info("서비스 단에서 dto로 변경하여 전송");
+        return eatBoardRepository.findAll(pageable).getContent()
+                .stream().map(EatBoardResponseDto::mapFrom)
+                .collect(Collectors.toList());
     }
 
 //    /**
@@ -72,5 +82,6 @@ public class EatBoardService {
 //    @Scheduled(cron = "0/10 * * * * ?", zone = "Asia/Seoul")
 //    public void testSChedule() {
 //        log.info("1분마다 실행 => time : " + LocalTime.now());
+//    }
 //    }
 }
