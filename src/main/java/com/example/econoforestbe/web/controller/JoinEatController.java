@@ -24,7 +24,7 @@ public class JoinEatController {
 
     @DeleteMapping("")
     public ResponseEntity<String> nonParticipateEatBoard(@RequestHeader(value = "Authorization") String accessToken,
-                                                         3@PathVariable Long eatBoardId, @RequestBody JoinEatDto joinEatDto){
+                                                         @PathVariable Long eatBoardId, @RequestBody JoinEatDto joinEatDto){
         joinEatService.nonJoinEatTogather(accessToken,eatBoardId,joinEatDto);
         return ResponseEntity.ok()
                 .body("미참으로 변경완료");
