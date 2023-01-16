@@ -1,6 +1,7 @@
 package com.example.econoforestbe.domain.eatBoard;
 
 import com.example.econoforestbe.domain.join.JoinedEatEvent;
+import com.example.econoforestbe.domain.join.NonJoinedEatEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
@@ -22,11 +23,21 @@ public class EatBoardEventHandler {
         EatBoard eatBoard = eatBoardRepository.findById(event.getEatBoardId())
                 .orElseThrow(()->new IllegalArgumentException(NOT_FOUND_EAT_BOARD));
 
-        EatParticipate eatParticipate=EatParticipate.builder()
-                        .idpId(event.getIdpId())
-                        .build();
+//        EatParticipate eatParticipate=EatParticipate.builder()
+//                        .idpId(event.getIdpId())
+//                        .build();
 
         eatBoard.getEatMembers().addParticipant(toEatMember(event.getIdpId()));
+    }
+
+    @EventListener
+    @Async
+    @Transactional
+    public void handler(NonJoinedEatEvent event) {
+        EatBoard eatBoard = eatBoardRepository.findById(event.getEatBoardId())
+                .orElseThrow(()->new IllegalArgumentException(NOT_FOUND_EAT_BOARD));
+
+        eatBoard.getEatMembers().deleteParticipant(toEatMember(event.getIdpId()));
     }
 
     private EatMember toEatMember(Long idpId){

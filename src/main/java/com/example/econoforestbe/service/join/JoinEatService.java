@@ -3,6 +3,7 @@ package com.example.econoforestbe.service.join;
 import com.example.econoforestbe.domain.join.JoinEat;
 import com.example.econoforestbe.domain.join.JoinValidator;
 import com.example.econoforestbe.domain.join.JoinedEatEvent;
+import com.example.econoforestbe.domain.join.NonJoinedEatEvent;
 import com.example.econoforestbe.service.member.IdpFeignClient;
 import com.example.econoforestbe.web.dto.JoinEatDto;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +36,15 @@ public class JoinEatService {
         joinValidator.validate(joinEat);
         publisher.publishEvent(new JoinedEatEvent(idpId, joinEat.getEatBoardId()));
     }
+
+    @Transactional
+    public void nonJoinEatTogather(String accessToken, Long eatBoardId, JoinEatDto joinEatDto) {
+        Long idpId = idpFeignClient.getIdpId(accessToken).getId();
+        JoinEat joinEat = joinEatMapper.mapFrom(idpId, eatBoardId, joinEatDto);
+        joinValidator.validate(joinEat);
+        publisher.publishEvent(new NonJoinedEatEvent(idpId, joinEat.getEatBoardId()));
+    }
+
+
 }
 
