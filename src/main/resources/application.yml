@@ -26,7 +26,8 @@ logging.level:
 # IDP 서버 요청
 idp:
   api:
-    uri: "http://168.131.30.127:8080/api/users/token"
+    uri: "http://168.131.30.127:8080/api/users"
+
 
 server:
   servlet:

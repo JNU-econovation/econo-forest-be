@@ -12,6 +12,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.transaction.Transactional;
 import javax.validation.constraints.Future;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -40,9 +41,9 @@ public class EatInfo {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof EatInfo)) return false;
-        EatInfo compareEatInfo = (EatInfo) o;
-        return Objects.equals(eatDateTime, compareEatInfo.eatDateTime);
+        if (!(o instanceof Info)) return false;
+        Info compareEatInfo = (Info) o;
+        return Objects.equals(eatDateTime, compareEatInfo.getLocalDateTime());
     }
 
     @Override
@@ -51,13 +52,13 @@ public class EatInfo {
     }
 
     private Info convertToInfo() {
-        return Info.builder()
-                .localDateTime(eatDateTime)
-                .build();
+        return Info.builder().localDateTime(eatDateTime).build();
     }
 
     public void validateStatus(Info info) {
-        if (!this.convertToInfo().equals(info)) {
+        log.info(info.getLocalDateTime().toString());
+        log.info(String.valueOf(!(this.equals(info))));
+        if (!(this.equals(info))) {
             throw new IllegalArgumentException(NOT_MATCH_EAT_BOARD_STATUS);
         }
     }

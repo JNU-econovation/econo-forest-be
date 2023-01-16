@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.Embeddable;
 import java.time.LocalDateTime;
@@ -15,14 +16,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Builder
+@Slf4j
 public class JoinInfo {
     private LocalDateTime eatInfoWhenJoin;
     private LocationCategory locationCategory;
 
     public Info convertToInfo() {
+        log.info(eatInfoWhenJoin.toString());
         return Info.builder()
                 .localDateTime(eatInfoWhenJoin)
-                .locationCategory(locationCategory)
                 .build();
     }
 }
