@@ -2,10 +2,12 @@ package com.example.econoforestbe.service.eatBoard;
 
 import com.example.econoforestbe.domain.eatBoard.EatBoard;
 import com.example.econoforestbe.domain.eatBoard.EatBoardRepository;
+import com.example.econoforestbe.service.member.IdpFeignClient;
 import com.example.econoforestbe.web.dto.EatBoardResponseDto;
 import com.example.econoforestbe.web.dto.EatReqDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -13,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,19 +25,23 @@ public class EatBoardService {
     private static final String NOT_FOUND_BOARD = "존재하지 않는 밥 먹어요 글입니다.";
     private final EatBoardRepository eatBoardRepository;
     private final EatBoardMapper eatBoardMapper;
+    private final IdpFeignClient idpFeignClient;
 
-    //TODO : idpId랑 연결
-    public EatBoard createEatBoard(EatReqDto eatReqDto) {
-        EatBoard requestEatBoard = eatBoardMapper.mapFrom(eatReqDto);
+    private Long idpId(String accessToken) {
+        return idpFeignClient.getIdpId(accessToken).getId();
+    }
+
+    public EatBoard createEatBoard(String accessToken, EatReqDto eatReqDto) {
+        EatBoard requestEatBoard = eatBoardMapper.mapFrom(idpId(accessToken), eatReqDto);
         EatBoard savedEatBoard = eatBoardRepository.save(requestEatBoard);
         return savedEatBoard;
     }
 
-    public boolean deleteEatBoard(Long eatBoardId) {
+    public boolean deleteEatBoard(String accessToken, Long eatBoardId) {
         EatBoard eatBoard = eatBoardRepository.findById(eatBoardId)
                 .orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_BOARD));
 
-        boolean isWriter = eatBoard.getEatMembers().getWriter().equals(1L);
+        boolean isWriter = eatBoard.getEatMembers().getWriter().equals(idpId(accessToken));
         if (isWriter) {
             eatBoardRepository.delete(eatBoard);
             log.info("deleteEatBoard : 밥 먹어요 게시글 삭제 완료");
@@ -45,11 +50,12 @@ public class EatBoardService {
         throw new IllegalArgumentException("작성자가 아니라서 삭제 권한 없습니다");
     }
 
-    public EatBoard updateEatBoard(Long eatBoardId, EatReqDto eatReqDto) {
-        deleteEatBoard(eatBoardId);
+    //TODO : IDP 서버에 2번 요청하고 있음 -> 1번 요청 + 재활용 할 수 있는 방법 찾아보기
+    public EatBoard updateEatBoard(String accessToken,Long eatBoardId, EatReqDto eatReqDto) {
+        deleteEatBoard(accessToken,eatBoardId);
         log.info("updateEatBoard : 기존 밥 먹어요 게시글 삭제 완료");
 
-        EatBoard updateEatBoard = createEatBoard(eatReqDto);
+        EatBoard updateEatBoard = createEatBoard(accessToken,eatReqDto);
         log.info("updateEatBoard : 새로운 밥 먹어요 게시글 생성하여 글 수정 완료");
         return updateEatBoard;
     }
@@ -69,11 +75,22 @@ public class EatBoardService {
         log.info(String.valueOf(eatBoardList.size()));
     }
 
-    public List<EatBoardResponseDto> getEatBoard(Pageable pageable) {
-        log.info("서비스 단에서 dto로 변경하여 전송");
-        return eatBoardRepository.findAll(pageable).getContent()
-                .stream().map(EatBoardResponseDto::mapFrom)
+    public List<EatBoardResponseDto> getEatBoard(String accessToken,Integer page, Integer size) {
+        Pageable paging= PageRequest.of(page,size);
+        Page<EatBoard> pagingEatBoard = eatBoardRepository.findAll(paging);
+
+
+        return pagingEatBoard.getContent()
+                .stream().map(eatBoard -> EatBoardResponseDto.mapFrom(eatBoard,pagingEatBoard.getNumber(),pagingEatBoard.getTotalPages(),idpNamesById(eatBoard)))
                 .collect(Collectors.toList());
     }
 
+    private String idpNameById(Long idpId) {
+        return idpFeignClient.getNamebyIdpId(idpId);
+    }
+
+    private List<String>idpNamesById(EatBoard eatBoard){
+        eatBoard.getEatMembers().getEatMemberList()
+                .forEach(eatMember -> idpNameById(eatMember.getIdpId()));
+    }
 }

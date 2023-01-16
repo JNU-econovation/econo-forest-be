@@ -4,12 +4,8 @@ import com.example.econoforestbe.domain.eatBoard.EatBoard;
 import com.example.econoforestbe.service.eatBoard.EatBoardService;
 import com.example.econoforestbe.web.dto.EatBoardResponseDto;
 import com.example.econoforestbe.web.dto.EatReqDto;
-import com.example.econoforestbe.web.dto.IdpResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -53,12 +49,12 @@ public class EatBoardController {
                 .build();
     }
 
-//    @GetMapping("")
-//    public ResponseEntity<List<EatBoardResponseDto>> getEatBoard(@RequestHeader(value = "Authorization") String accessToken,
-//                                                                 @PageableDefault(direction = Sort.Direction.ASC)Pageable pageable) {
-//        log.info("페이징 불러오기");
-//        return ResponseEntity.ok()
-//                        .body(eatBoardService.getEatBoard(pageable));
-//
-//    }
+    @GetMapping("")
+    public ResponseEntity<List<EatBoardResponseDto>> getEatBoard(@RequestHeader(value = "Authorization") String accessToken,
+                                                                 @RequestParam Integer page,
+                                                                 @RequestParam Integer size) {
+        log.info("페이징 불러오기");
+        return ResponseEntity.ok()
+                        .body(eatBoardService.getEatBoard(accessToken,page,size));
+    }
 }
