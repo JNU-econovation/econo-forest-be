@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 @EnableScheduling
 @EnableFeignClients
 public class EconoForestBeApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(EconoForestBeApplication.class, args);
 	}

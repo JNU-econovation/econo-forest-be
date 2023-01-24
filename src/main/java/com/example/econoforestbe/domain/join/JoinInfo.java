@@ -12,19 +12,23 @@ import javax.persistence.Embeddable;
 import java.time.LocalDateTime;
 
 @Embeddable
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Builder
 @Slf4j
 public class JoinInfo {
-    private LocalDateTime eatInfoWhenJoin;
+    private LocalDateTime localDateTime;
     private LocationCategory locationCategory;
 
+    @Builder
+    public JoinInfo(LocalDateTime localDateTime, LocationCategory locationCategory){
+        this.localDateTime=localDateTime;
+        this.locationCategory=locationCategory;
+    }
+
     public Info convertToInfo() {
-        log.info(eatInfoWhenJoin.toString());
         return Info.builder()
-                .localDateTime(eatInfoWhenJoin)
+                .localDateTime(localDateTime)
+                .locationCategory(locationCategory)
                 .build();
     }
 }
