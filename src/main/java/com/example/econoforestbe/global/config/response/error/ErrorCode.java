@@ -14,7 +14,8 @@ public enum ErrorCode {
     //밥 먹어요
     ALREADY_PARTICIPATE(HttpStatus.BAD_REQUEST, "400101", "이미 해당 밥 먹어요 글에 참여했습니다."),
     NO_PARTICIPATE(HttpStatus.BAD_REQUEST, "400102", "원래 해당 밥 먹어요 글에 참여하지 않았습니다."),
-    CHANGED_INFO(HttpStatus.BAD_REQUEST, "400103", "밥 먹어요 글이 변경되었습니다. 확인해주세요");
+    CHANGED_INFO(HttpStatus.BAD_REQUEST, "400103", "밥 먹어요 글이 변경되었습니다. 확인해주세요"),
+    NOT_EXISTS_CATEGORY(HttpStatus.BAD_REQUEST, "400104", "존재하지 않은 카테고리 입니다.");
 
 
     ErrorCode(HttpStatus httpStatus, String errorCode, String message) {
