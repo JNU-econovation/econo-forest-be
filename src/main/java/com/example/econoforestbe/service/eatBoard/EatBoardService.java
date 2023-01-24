@@ -3,7 +3,7 @@ package com.example.econoforestbe.service.eatBoard;
 import com.example.econoforestbe.domain.eatBoard.EatBoard;
 import com.example.econoforestbe.domain.eatBoard.EatBoardRepository;
 import com.example.econoforestbe.global.config.response.error.exception.common.NoDeleteRight;
-import com.example.econoforestbe.global.config.response.error.exception.common.NOT_FOUND_BOARD;
+import com.example.econoforestbe.global.config.response.error.exception.common.NotFoundBoard;
 import com.example.econoforestbe.service.member.IdpFeignClient;
 import com.example.econoforestbe.web.dto.EatReqDto;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +36,7 @@ public class EatBoardService {
 
     public boolean deleteEatBoard(String accessToken, Long eatBoardId) {
         EatBoard eatBoard = eatBoardRepository.findById(eatBoardId)
-                .orElseThrow(NOT_FOUND_BOARD::new);
+                .orElseThrow(NotFoundBoard::new);
 
         boolean isWriter = eatBoard.getEatMembers().getWriter().equals(idpId(accessToken));
         if (isWriter) {

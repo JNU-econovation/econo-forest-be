@@ -1,7 +1,7 @@
 package com.example.econoforestbe.domain.join;
 
 import com.example.econoforestbe.domain.eatBoard.*;
-import com.example.econoforestbe.global.config.response.error.exception.common.NOT_FOUND_BOARD;
+import com.example.econoforestbe.global.config.response.error.exception.common.NotFoundBoard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +17,7 @@ public class JoinValidator {
 
     private EatBoard validateEatBoard(Long eatBoardId) {
         return eatBoardRepository.findById(eatBoardId)
-                .orElseThrow(NOT_FOUND_BOARD::new);
+                .orElseThrow(NotFoundBoard::new);
     }
 
     /**
