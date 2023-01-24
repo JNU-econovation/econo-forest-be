@@ -25,14 +25,13 @@ public class EatBoard extends Timestamped {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EAT_BOARD_ID")
     private Long id;
+
     @Embedded
-    @Column(name = "EAT_BOARD_NAME")
     private Title title;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "EAT_BOARD_LOCATION_CATEGORY")
-    private LocationCategory locationCategory;
+
     @Embedded
     private EatMembers eatMembers;
+
     @Embedded
     private EatInfo eatInfo;
 }

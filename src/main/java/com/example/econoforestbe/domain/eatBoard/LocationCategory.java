@@ -2,8 +2,8 @@ package com.example.econoforestbe.domain.eatBoard;
 
 import com.example.econoforestbe.global.config.response.error.exception.eatBoard.NotExistsCategory;
 
+import javax.persistence.Column;
 import java.util.Arrays;
-
 public enum LocationCategory {
     MAIN_GATE("MainGate"),
     BACK_GATE("BackGate"),
