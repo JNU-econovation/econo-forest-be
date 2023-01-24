@@ -2,8 +2,7 @@ package com.example.econoforestbe.service.eatBoard;
 
 import com.example.econoforestbe.domain.eatBoard.EatBoard;
 import com.example.econoforestbe.domain.eatBoard.EatBoardRepository;
-import com.example.econoforestbe.global.config.response.error.exception.common.NO_DELETE_RIGHT;
-import com.example.econoforestbe.global.config.response.error.exception.common.NO_EDIT_RIGHT;
+import com.example.econoforestbe.global.config.response.error.exception.common.NoDeleteRight;
 import com.example.econoforestbe.global.config.response.error.exception.common.NOT_FOUND_BOARD;
 import com.example.econoforestbe.service.member.IdpFeignClient;
 import com.example.econoforestbe.web.dto.EatReqDto;
@@ -29,10 +28,10 @@ public class EatBoardService {
         return idpFeignClient.getIdpId(accessToken).getId();
     }
 
-    public EatBoard createEatBoard(String accessToken, EatReqDto eatReqDto) {
+    public Long createEatBoard(String accessToken, EatReqDto eatReqDto) {
         EatBoard requestEatBoard = eatBoardMapper.mapFrom(idpId(accessToken), eatReqDto);
         EatBoard savedEatBoard = eatBoardRepository.save(requestEatBoard);
-        return savedEatBoard;
+        return savedEatBoard.getId();
     }
 
     public boolean deleteEatBoard(String accessToken, Long eatBoardId) {
@@ -45,7 +44,7 @@ public class EatBoardService {
             log.info("deleteEatBoard : 밥 먹어요 게시글 삭제 완료");
             return true;
         }
-        throw new NO_DELETE_RIGHT();
+        throw new NoDeleteRight();
     }
 
     //TODO : IDP 서버에 2번 요청하고 있음 -> 1번 요청 + 재활용 할 수 있는 방법 찾아보기
@@ -53,9 +52,9 @@ public class EatBoardService {
         deleteEatBoard(accessToken,eatBoardId);
         log.info("updateEatBoard : 기존 밥 먹어요 게시글 삭제 완료");
 
-        EatBoard updateEatBoard = createEatBoard(accessToken,eatReqDto);
+        Long updateEatBoardId = createEatBoard(accessToken,eatReqDto);
         log.info("updateEatBoard : 새로운 밥 먹어요 게시글 생성하여 글 수정 완료");
-        return updateEatBoard.getId();
+        return updateEatBoardId;
     }
 
     @Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul")
