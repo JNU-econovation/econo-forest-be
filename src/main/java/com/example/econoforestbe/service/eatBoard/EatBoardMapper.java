@@ -13,13 +13,14 @@ public class EatBoardMapper {
     public EatBoard mapFrom(Long idpId, EatReqDto eatReqDto){
         return EatBoard.builder()
                 .title(toTitle(eatReqDto.getTitle()))
-                .locationCategory(LocationCategory.hasCategory(eatReqDto.getLocationCategory()))
                 .eatMembers(toEatMembers(idpId))
                 .eatInfo(EatInfo.builder()
-                        .eatDateTime(EpochTime.toLocalDateTime(eatReqDto.getEatDateTime()))
+                        .localDateTime(EpochTime.toLocalDateTime(eatReqDto.getEatDateTime()))
+                        .locationCategory(LocationCategory.hasCategory(eatReqDto.getLocationCategory()))
                         .build())
                 .build();
     }
+
     private EatMembers toEatMembers(Long idpId){
         return EatMembers.builder()
                 .eatMemberList(eatMembers(idpId))

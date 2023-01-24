@@ -8,8 +8,12 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter
-@AllArgsConstructor
-@Builder
 public class Info {
     private LocalDateTime localDateTime;
+    private String locationCategory;
+    @Builder
+    public Info(LocalDateTime localDateTime, String locationCategory) {
+        this.localDateTime = localDateTime;
+        this.locationCategory = locationCategory;
+    }
 }

@@ -18,4 +18,9 @@ public class JoinEat {
     private Long eatBoardId;
     @Embedded
     private JoinMember joinMember;
+
+    public void compare(JoinValidator joinValidator){
+        joinValidator.validate(this);
+    }
+    
 }

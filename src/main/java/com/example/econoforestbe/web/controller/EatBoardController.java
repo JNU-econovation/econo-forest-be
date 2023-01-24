@@ -24,10 +24,10 @@ public class EatBoardController {
 
     @PostMapping("")
     public ResponseDto<SuccessResponse.successWithoutDataBody> createEatBoard(@RequestHeader(value = "Authorization") String accessToken, @RequestBody EatReqDto eatReqDto) {
-        EatBoard newEatBoard = eatBoardService.createEatBoard(accessToken,eatReqDto);
+        Long createEatBoardId = eatBoardService.createEatBoard(accessToken,eatReqDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{boardId}")
-                .buildAndExpand(newEatBoard.getId())
+                .buildAndExpand(createEatBoardId)
                 .toUri();
         HttpHeaders httpHeaders=new HttpHeaders();
         httpHeaders.setLocation(uri);

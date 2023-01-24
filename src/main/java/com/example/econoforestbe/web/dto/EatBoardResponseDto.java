@@ -25,9 +25,9 @@ public class EatBoardResponseDto {
                         .eatBoardId(eatBoard.getId())
                         .title(eatBoard.getTitle().getTitle())
                         .eatInfo(EpochTime.toEpochSecond(eatBoard.getEatInfo().getEatDateTime()))
-                                .location(eatBoard.getLocationCategory())
+                                .location(eatBoard.getEatInfo().getLocationCategory())
                                 .numParticipant(eatBoard.getEatMembers().getEatMemberList().size())
-                        .participants()
+//                        .participants()
                                 .build())
                 .build();
     }
