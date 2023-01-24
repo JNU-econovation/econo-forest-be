@@ -17,10 +17,10 @@ import java.time.LocalDateTime;
 @Slf4j
 public class JoinInfo {
     private LocalDateTime localDateTime;
-    private LocationCategory locationCategory;
+    private String locationCategory;
 
     @Builder
-    public JoinInfo(LocalDateTime localDateTime, LocationCategory locationCategory){
+    public JoinInfo(LocalDateTime localDateTime, String locationCategory){
         this.localDateTime=localDateTime;
         this.locationCategory=locationCategory;
     }

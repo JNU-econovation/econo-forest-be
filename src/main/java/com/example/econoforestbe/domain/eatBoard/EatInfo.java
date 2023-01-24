@@ -42,7 +42,7 @@ public class EatInfo {
         if (this == o) return true;
         if (!(o instanceof Info)) return false;
         Info info = (Info) o;
-        return Objects.equals(eatDateTime, info.getLocalDateTime()) && Objects.equals(locationCategory.getLocation(), info.getLocationCategory().getLocation());
+        return Objects.equals(eatDateTime, info.getLocalDateTime()) && Objects.equals(locationCategory.getLocation(), info.getLocationCategory());
     }
 
     @Override

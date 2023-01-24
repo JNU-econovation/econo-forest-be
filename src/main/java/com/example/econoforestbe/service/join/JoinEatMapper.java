@@ -23,7 +23,7 @@ public class JoinEatMapper {
     public JoinInfo toJoinInfo(Long joinInfo, String locationCategory){
         return JoinInfo.builder()
                 .localDateTime(EpochTime.toLocalDateTime(joinInfo))
-                .locationCategory(LocationCategory.hasCategory(locationCategory))
+                .locationCategory(locationCategory)
                 .build();
     }
 

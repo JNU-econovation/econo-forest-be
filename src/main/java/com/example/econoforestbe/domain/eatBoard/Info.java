@@ -10,9 +10,9 @@ import java.util.Objects;
 @Getter
 public class Info {
     private LocalDateTime localDateTime;
-    private LocationCategory locationCategory;
+    private String locationCategory;
     @Builder
-    public Info(LocalDateTime localDateTime, LocationCategory locationCategory) {
+    public Info(LocalDateTime localDateTime, String locationCategory) {
         this.localDateTime = localDateTime;
         this.locationCategory = locationCategory;
     }
