@@ -19,12 +19,6 @@ public class NonJoinEatBoardEventHandler {
         EatBoard eatBoard = eatBoardRepository.findById(event.getEatBoardId())
                 .orElseThrow(NOT_FOUND_BOARD::new);
 
-        eatBoard.getEatMembers().deleteParticipant(toEatParticipate(event.getIdpId()));
-    }
-
-    private EatParticipate toEatParticipate(Long idpId){
-        return EatParticipate.builder()
-                .idpId(idpId)
-                .build();
+        eatBoard.getEatMembers().deleteParticipant(event.getIdpId());
     }
 }

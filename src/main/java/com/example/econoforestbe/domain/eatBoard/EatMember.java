@@ -25,9 +25,9 @@ public class EatMember {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof EatParticipate)) return false;
-        EatParticipate eatParticipate = (EatParticipate) o;
-        return idpId.equals(eatParticipate.getIdpId());
+        if (!(o instanceof Long)) return false;
+        Long idpId = (Long) o;
+        return this.idpId.equals(idpId);
     }
 
     @Override
