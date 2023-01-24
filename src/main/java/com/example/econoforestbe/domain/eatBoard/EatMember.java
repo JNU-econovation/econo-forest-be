@@ -1,5 +1,6 @@
 package com.example.econoforestbe.domain.eatBoard;
 
+import com.example.econoforestbe.global.config.response.error.exception.common.NotFoundWriter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,8 +15,6 @@ import java.util.Objects;
 @Getter
 @Builder
 public class EatMember {
-    private static final String NOT_FOUND_WRITER="작성자가 존재하지 않습니다";
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,20 +25,20 @@ public class EatMember {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof EatMember)) return false;
-        EatMember eatMember = (EatMember) o;
-        return eatMemberType == eatMember.eatMemberType && Objects.equals(idpId,eatMember.getIdpId());
+        if (!(o instanceof EatParticipate)) return false;
+        EatParticipate eatParticipate = (EatParticipate) o;
+        return idpId.equals(eatParticipate.getIdpId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idpId, getWriter());
+        return Objects.hash(idpId);
     }
 
     public Long getWriter(){
         if(this.eatMemberType.equals(EatMemberType.AUTHOR)){
             return this.idpId;
         }
-        throw new IllegalArgumentException(NOT_FOUND_WRITER);
+        throw new NotFoundWriter();
     }
 }

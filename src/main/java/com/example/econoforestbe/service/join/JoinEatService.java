@@ -41,7 +41,7 @@ public class JoinEatService {
     public void nonJoinEatTogather(String accessToken, Long eatBoardId, JoinEatDto joinEatDto) {
         Long idpId = idpFeignClient.getIdpId(accessToken).getId();
         JoinEat joinEat = joinEatMapper.mapFrom(idpId, eatBoardId, joinEatDto);
-        joinValidator.validate(joinEat);
+        joinEat.compare(joinValidator);
         publisher.publishEvent(new NonJoinedEatEvent(idpId, joinEat.getEatBoardId()));
     }
 

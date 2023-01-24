@@ -32,23 +32,29 @@ public class EatMembers {
 
     /**
      *
-     * @param eatMember 참여하고자 하는 사람
+     * @param eatParticipate 참여하고자 하는 사람
      * @return 해당 글의 참여자들 목록
      */
-    public List<EatMember> addParticipant(EatMember eatMember) {
-        validateDuplicateMember(eatMember);
-        eatMemberList.add(eatMember);
+    public List<EatMember> addParticipant(EatParticipate eatParticipate) {
+        validateDuplicateMember(eatParticipate);
+        eatMemberList.add(toEatMember(eatParticipate));
         return eatMemberList;
+    }
+    private EatMember toEatMember(EatParticipate eatParticipate){
+        return EatMember.builder()
+                .idpId(eatParticipate.getIdpId())
+                .eatMemberType(EatMemberType.PARTICIPANT)
+                .build();
     }
 
     /**
      *
-     * @param eatMember 참여하고자 하는 사람
+     * @param eatParticipate 참여하고자 하는 사람
      * 이미 해당 밥 먹어요에 참여한 사람이면 예외발생
      */
-    private void validateDuplicateMember(EatMember eatMember) {
+    private void validateDuplicateMember(EatParticipate eatParticipate) {
         eatMemberList.stream()
-                .filter(member -> member.equals(eatMember))
+                .filter(eatMember -> eatMember.equals(eatParticipate))
                 .findAny()
                 .ifPresent(eatMember1 -> {
                     throw new IllegalArgumentException(DUPLICATE_MEMBER_IN_EAT);
@@ -57,24 +63,24 @@ public class EatMembers {
 
     /**
      *
-     * @param eatMember 불참하고자 하는 사람
+     * @param eatParticipate 불참하고자 하는 사람
      * @return 해당 불참자를 제외한 참여자들 목록
      */
-    public List<EatMember> deleteParticipant(EatMember eatMember) {
-        validateNotParticipate(eatMember);
-        eatMemberList.remove(eatMember);
+    public List<EatMember> deleteParticipant(EatParticipate eatParticipate) {
+        validateNotParticipate(eatParticipate);
+        eatMemberList.remove(toEatMember(eatParticipate));
         return eatMemberList;
     }
 
 
     /**
      *
-     * @param eatMember eatMember 불참하고자 하는 사람
+     * @param eatParticipate eatParticiate 불참하고자 하는 사람
      * 이전에 해당 밥 먹어요에 참여하지 않은 사람이라면 예외발생
      */
-    private void validateNotParticipate(EatMember eatMember){
+    private void validateNotParticipate(EatParticipate eatParticipate){
         eatMemberList.stream()
-                .filter(participateMember -> eatMember.equals(participateMember))
+                .filter(participateMember -> eatParticipate.equals(participateMember))
                 .findAny()
                 .orElseThrow(()->new IllegalArgumentException(NOT_PARTICIPATE_MEMBER_IN_EAT));
     }
