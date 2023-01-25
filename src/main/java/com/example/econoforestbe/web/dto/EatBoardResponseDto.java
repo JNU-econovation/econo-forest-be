@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Builder
@@ -17,7 +18,7 @@ public class EatBoardResponseDto {
     private int lastPage;
     private EatPlan eatPlan;
 
-    public static EatBoardResponseDto mapFrom(EatBoard eatBoard, int page, int lastPage, List<String> names){
+    public static EatBoardResponseDto mapFrom(EatBoard eatBoard, int page, int lastPage, List<IdpDetailResponseDto> idpDetailResponseDto,String type) {
         return EatBoardResponseDto.builder()
                 .page(page)
                 .lastPage(lastPage)
@@ -25,30 +26,49 @@ public class EatBoardResponseDto {
                         .eatBoardId(eatBoard.getId())
                         .title(eatBoard.getTitle().getTitle())
                         .eatInfo(EpochTime.toEpochSecond(eatBoard.getEatInfo().getEatDateTime()))
-                                .location(eatBoard.getEatInfo().getLocationCategory())
-                                .numParticipant(eatBoard.getEatMembers().getEatMemberList().size())
-//                        .participants()
+                        .location(eatBoard.getEatInfo().getLocationCategory())
+                        .numParticipant(eatBoard.getEatMembers().getEatMemberList().size())
+                        .authorName(idpDetailResponseDto.get(0).getName())
+                        .eatMemberType(type)
+                        .participants(Participants.builder()
+                                .participants(idpDetailResponseDto.stream()
+                                        .map(x->Participant.builder()
+                                                .clubYear(x.getYear())
+                                                .name(x.getName())
+                                                .build())
+                                        .collect(Collectors.toList()))
                                 .build())
+
+                        .build())
                 .build();
     }
 }
+
 @Builder
 @AllArgsConstructor
 @Getter
-class EatPlan{
+class EatPlan {
     private Long eatBoardId;
     private String title;
     private Long eatInfo;
     private LocationCategory location;
     private int numParticipant;
-    private Participants participants;
     private String authorName;
-    private EatMemberType eatMemberType;
+    private String eatMemberType;
+    private Participants participants;
+
 }
+
 @Builder
 @AllArgsConstructor
 @Getter
-class Participants{
+class Participant {
     private Long clubYear;
     private String name;
 }
+@Builder
+@Getter
+class Participants {
+    private List<Participant> participants;
+}
+

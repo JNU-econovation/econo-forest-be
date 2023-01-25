@@ -28,7 +28,7 @@ public class JoinEatController {
                                                                                    @PathVariable Long eatBoardId, @RequestBody JoinEatDto joinEatDto){
         joinEatService.joinEatTogather(accessToken,eatBoardId,joinEatDto);
         return ResponseGenerator.success(SuccessCode.PARTICIPATE_EAT_BOARD.getHttpStatus(),
-                SuccessCode.PARTICIPATE_EAT_BOARD.getErrorCode(),
+                SuccessCode.PARTICIPATE_EAT_BOARD.getSuccessCode(),
                 SuccessCode.PARTICIPATE_EAT_BOARD.getMessage());
     }
     @ApiOperation(value="밥 먹어요 글 불참")
@@ -38,7 +38,7 @@ public class JoinEatController {
                                                                                       @PathVariable Long eatBoardId, @RequestBody JoinEatDto joinEatDto){
         joinEatService.nonJoinEatTogather(accessToken,eatBoardId,joinEatDto);
         return ResponseGenerator.success(SuccessCode.NON_PARTICIPATE_EAT_BOARD.getHttpStatus(),
-                SuccessCode.NON_PARTICIPATE_EAT_BOARD.getErrorCode(),
+                SuccessCode.NON_PARTICIPATE_EAT_BOARD.getSuccessCode(),
                 SuccessCode.NON_PARTICIPATE_EAT_BOARD.getMessage());
     }
 
