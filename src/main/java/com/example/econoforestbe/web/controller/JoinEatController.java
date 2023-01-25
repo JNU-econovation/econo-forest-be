@@ -8,6 +8,7 @@ import com.example.econoforestbe.service.join.JoinEatService;
 import com.example.econoforestbe.web.dto.JoinEatDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ public class JoinEatController {
     @ApiOperation(value="밥 먹어요 글 참여")
     @PostMapping("")
     public ResponseDto<SuccessResponse.successWithoutDataBody> participateEatBoard(@RequestHeader(value = "Authorization") String accessToken,
+                                                                                   @Parameter(description = "글 UID", required = true, example = "1")
                                                                                    @PathVariable Long eatBoardId, @RequestBody JoinEatDto joinEatDto){
         joinEatService.joinEatTogather(accessToken,eatBoardId,joinEatDto);
         return ResponseGenerator.success(SuccessCode.PARTICIPATE_EAT_BOARD.getHttpStatus(),
@@ -32,6 +34,7 @@ public class JoinEatController {
     @ApiOperation(value="밥 먹어요 글 불참")
     @DeleteMapping("")
     public ResponseDto<SuccessResponse.successWithoutDataBody> nonParticipateEatBoard(@RequestHeader(value = "Authorization") String accessToken,
+                                                                                      @Parameter(description = "글 UID", required = true, example = "1")
                                                                                       @PathVariable Long eatBoardId, @RequestBody JoinEatDto joinEatDto){
         joinEatService.nonJoinEatTogather(accessToken,eatBoardId,joinEatDto);
         return ResponseGenerator.success(SuccessCode.NON_PARTICIPATE_EAT_BOARD.getHttpStatus(),
