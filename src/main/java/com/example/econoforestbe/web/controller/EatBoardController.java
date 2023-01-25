@@ -1,25 +1,26 @@
 package com.example.econoforestbe.web.controller;
 
-import com.example.econoforestbe.domain.eatBoard.EatBoard;
 import com.example.econoforestbe.global.config.response.ResponseDto;
 import com.example.econoforestbe.global.config.response.ResponseGenerator;
 import com.example.econoforestbe.global.config.response.success.SuccessCode;
 import com.example.econoforestbe.global.config.response.success.SuccessResponse;
 import com.example.econoforestbe.service.eatBoard.EatBoardService;
+import com.example.econoforestbe.web.dto.EatBoardResponseDto;
 import com.example.econoforestbe.web.dto.EatReqDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @Api(tags = "밥 먹어요 CRUD")
 @RestController
@@ -30,8 +31,8 @@ public class EatBoardController {
     private final EatBoardService eatBoardService;
 
     @ApiOperation(value = "글 생성", notes = "밥 먹어요 글 생성합니다.")
-    @ApiResponses(value={
-            @ApiResponse(code=200,message = "글 생성 성공",response = ResponseDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "글 생성 성공", response = ResponseDto.class)
 
     })
     @PostMapping("")
@@ -45,7 +46,7 @@ public class EatBoardController {
         httpHeaders.setLocation(uri);
 
         return ResponseGenerator.create(SuccessCode.CREATED_EAT_BOARD.getHttpStatus(),
-                SuccessCode.CREATED_EAT_BOARD.getErrorCode(),
+                SuccessCode.CREATED_EAT_BOARD.getSuccessCode(),
                 SuccessCode.CREATED_EAT_BOARD.getMessage(),
                 httpHeaders);
     }
@@ -57,7 +58,7 @@ public class EatBoardController {
         eatBoardService.deleteEatBoard(accessToken, eatBoardId);
 
         return ResponseGenerator.success(SuccessCode.EDIT_EAT_BOARD.getHttpStatus(),
-                SuccessCode.EDIT_EAT_BOARD.getErrorCode(),
+                SuccessCode.EDIT_EAT_BOARD.getSuccessCode(),
                 SuccessCode.EDIT_EAT_BOARD.getMessage());
     }
 
@@ -73,17 +74,19 @@ public class EatBoardController {
                 .toUri();
         log.info("uri 만들었습니다." + String.valueOf(uri));
         return ResponseGenerator.success(SuccessCode.EDIT_EAT_BOARD.getHttpStatus(),
-                SuccessCode.EDIT_EAT_BOARD.getErrorCode(),
+                SuccessCode.EDIT_EAT_BOARD.getSuccessCode(),
                 SuccessCode.EDIT_EAT_BOARD.getMessage());
     }
 
-//    @ApiOperation(value="밥 먹어요 글 페이징 조회")
-//    @GetMapping("")
-//    public ResponseEntity<List<EatBoardResponseDto>> getEatBoard(@RequestHeader(value = "Authorization") String accessToken,
-//                                                                 @RequestParam Integer page,
-//                                                                 @RequestParam Integer size) {
-//        log.info("페이징 불러오기");
-//        return ResponseEntity.ok()
-//                        .body(eatBoardService.getEatBoard(accessToken,page,size));
-//    }
+    @ApiOperation(value = "밥 먹어요 글 페이징 조회")
+    @GetMapping("")
+    public ResponseDto<SuccessResponse.successWithDataBody> getEatBoard(@RequestHeader(value = "Authorization") String accessToken,
+                                                                        @RequestParam Integer page,
+                                                                        @RequestParam Integer size) {
+        List<EatBoardResponseDto> eatBoardResponseDtoList = eatBoardService.getEatBoard(accessToken, page, size);
+        return ResponseGenerator.success(eatBoardResponseDtoList,
+                HttpStatus.OK,
+                SuccessCode.GET_EAT_BOARD.getSuccessCode(),
+                SuccessCode.GET_EAT_BOARD.getMessage());
+    }
 }

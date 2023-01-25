@@ -5,9 +5,14 @@ import com.example.econoforestbe.domain.eatBoard.EatBoardRepository;
 import com.example.econoforestbe.global.config.response.error.exception.common.NoDeleteRight;
 import com.example.econoforestbe.global.config.response.error.exception.common.NotFoundBoard;
 import com.example.econoforestbe.service.member.IdpFeignClient;
+import com.example.econoforestbe.web.dto.EatBoardResponseDto;
 import com.example.econoforestbe.web.dto.EatReqDto;
+import com.example.econoforestbe.web.dto.IdpDetailResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -72,22 +77,33 @@ public class EatBoardService {
         log.info(String.valueOf(eatBoardList.size()));
     }
 
-//    public List<EatBoardResponseDto> getEatBoard(String accessToken,Integer page, Integer size) {
-//        Pageable paging= PageRequest.of(page,size);
-//        Page<EatBoard> pagingEatBoard = eatBoardRepository.findAll(paging);
-//
-//
-//        return pagingEatBoard.getContent()
-//                .stream().map(eatBoard -> EatBoardResponseDto.mapFrom(eatBoard,pagingEatBoard.getNumber(),pagingEatBoard.getTotalPages(),idpNamesById(eatBoard)))
-//                .collect(Collectors.toList());
-//    }
+    public List<EatBoardResponseDto> getEatBoard(String accessToken,Integer page, Integer size) {
+        Pageable paging= PageRequest.of(page,size);
+        Page<EatBoard> pagingEatBoard = eatBoardRepository.findAll(paging);
 
-    private String idpNameById(Long idpId) {
+        return pagingEatBoard.getContent()
+                .stream().map(eatBoard -> EatBoardResponseDto.mapFrom(eatBoard,pagingEatBoard.getNumber(),pagingEatBoard.getTotalPages(),
+                        idpNamesById(eatBoard),
+                        getUserType(eatBoard.getId(),accessToken)))
+                .collect(Collectors.toList());
+    }
+
+    private IdpDetailResponseDto idpNameById(Long idpId) {
         return idpFeignClient.getNamebyIdpId(idpId);
     }
 
-//    private List<String>idpNamesById(EatBoard eatBoard){
-//        eatBoard.getEatMembers().getEatMemberList()
-//                .forEach(eatMember -> idpNameById(eatMember.getIdpId()));
-//    }
+    private List<IdpDetailResponseDto>idpNamesById(EatBoard eatBoard){
+        return eatBoard.getEatMembers().getEatMemberList()
+                .stream().map(eatMember -> idpNameById(eatMember.getIdpId()))
+                .collect(Collectors.toList());
+
+    }
+    private String getUserType(Long eatBoardId, String accessToken){
+        EatBoard eatBoard = eatBoardRepository.findById(eatBoardId)
+                .orElseThrow(NotFoundBoard::new);
+        Long idpId=idpId(accessToken);
+
+        return eatBoard.getEatMembers().getType(idpId);
+
+    }
 }
