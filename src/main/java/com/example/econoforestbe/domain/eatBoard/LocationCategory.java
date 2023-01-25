@@ -5,11 +5,10 @@ import com.example.econoforestbe.global.config.response.error.exception.eatBoard
 import javax.persistence.Column;
 import java.util.Arrays;
 public enum LocationCategory {
-    MAIN_GATE("MainGate"),
-    BACK_GATE("BackGate"),
-    BUSINESS_GATE("BusinessGate"),
-    ENGINEERING_GATE("EngineeringGate"),
-    ART_GATE("ArtGate");
+    MAIN_GATE("MAINGATE"),
+    BUSINESS_GATE("BUSINESSGATE"),
+    ENGINEERING_GATE("ENGINEERINGGATE"),
+    ART_GATE("ARTGATE");
     private String location;
 
     LocationCategory(String location){

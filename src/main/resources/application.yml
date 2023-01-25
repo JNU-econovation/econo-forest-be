@@ -16,6 +16,10 @@ spring:
     listener:
       idle-partition-event-interval:
 
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
 logging.level:
   org.hibernate.SQL: debug
 #  org.springframework.transaction.interceptor : trace

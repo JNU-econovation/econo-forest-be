@@ -1,5 +1,6 @@
 package com.example.econoforestbe.web.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -9,7 +10,8 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 public class JoinEatDto {
-    //현재 DB 정보랑, 참여할 때 정보가 같은지 확인
+    @Schema(description = "날짜/시간", example = "167379449")
     private Long eatInfo;
+    @Schema(description = "장소 카테고리", example = "MAINGATE")
     private String locationCategory;
 }
