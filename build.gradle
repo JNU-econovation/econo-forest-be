@@ -32,6 +32,8 @@ dependencies {
     implementation 'io.springfox:springfox-swagger-ui:3.0.0'
     implementation group: 'io.springfox', name: 'springfox-oas', version: '3.0.0'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
+    runtimeOnly 'mysql:mysql-connector-java:8.0.25'
 }
 ext {
     set('springCloudVersion', "2021.0.4")
